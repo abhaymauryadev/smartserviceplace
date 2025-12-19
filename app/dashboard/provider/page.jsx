@@ -1,7 +1,17 @@
-import React from 'react'
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-export default function page() {
+export default async function ProviderDashboard() {
+  const session = await getServerSession(authOptions);
+
   return (
-    <div>provider dashboard home page</div>
-  )
+    <>
+      <h1 className="text-2xl font-bold mb-2">
+        Provider Panel
+      </h1>
+      <p className="text-gray-600">
+        Manage services, bookings, and earnings.
+      </p>
+    </>
+  );
 }
