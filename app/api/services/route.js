@@ -5,12 +5,20 @@ import { connectDB } from "@/lib/db";
 import Service from "@/models/Service";
 
 export async function GET() {
-  await connectDB();
-  const services = await Service.find({ isActive: true }).populate(
-    "provider",
-    "name"
-  );
-  return NextResponse.json(services);
+  try {
+    await connectDB();
+    const services = await Service.find({ isActive: true }).populate(
+      "provider",
+      "name"
+    );
+    return NextResponse.json(services);
+  } catch (error) {
+    console.error("Error fetching services:", error);
+    return NextResponse.json(
+      { message: "Failed to fetch services", error: error.message },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(req) {

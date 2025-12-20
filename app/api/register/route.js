@@ -8,9 +8,35 @@ export async function POST(req) {
         const body = await req.json();
         const { name, email, password, role } = body;
 
+        // Input validation
+        if (!name || !email || !password) {
+            return NextResponse.json(
+                { message: "Name, email, and password are required" },
+                { status: 400 }
+            );
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return NextResponse.json(
+                { message: "Invalid email format" },
+                { status: 400 }
+            );
+        }
+
+        // Password validation
+        if (password.length < 6) {
+            return NextResponse.json(
+                { message: "Password must be at least 6 characters long" },
+                { status: 400 }
+            );
+        }
+
         await connectDB();
 
-        const existingUser = await User.findOne({ email });
+        // Check for existing user
+        const existingUser = await User.findOne({ email: email.toLowerCase() });
         if (existingUser) {
             return NextResponse.json(
                 { message: "User already exists" },
@@ -18,19 +44,51 @@ export async function POST(req) {
             );
         }
 
+        // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        // Create user
         const user = await User.create({
-            name,
-            email,
+            name: name.trim(),
+            email: email.toLowerCase().trim(),
             password: hashedPassword,
-            role,
+            role: role || "user",
         });
 
-        return NextResponse.json({ user }, { status: 201 });
+        // Remove password from response
+        const userResponse = {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+        };
+
+        return NextResponse.json({ user: userResponse }, { status: 201 });
     } catch (error) {
+        console.error("Registration error:", error);
+
+        // Handle Mongoose validation errors
+        if (error.name === "ValidationError") {
+            const messages = Object.values(error.errors).map(
+                (err) => err.message
+            );
+            return NextResponse.json(
+                { message: messages.join(", ") },
+                { status: 400 }
+            );
+        }
+
+        // Handle duplicate key error (unique constraint)
+        if (error.code === 11000) {
+            return NextResponse.json(
+                { message: "User with this email already exists" },
+                { status: 400 }
+            );
+        }
+
+        // Generic error
         return NextResponse.json(
-            { message: "Registration failed" },
+            { message: error.message || "Registration failed" },
             { status: 500 }
         );
     }

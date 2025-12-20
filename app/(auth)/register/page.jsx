@@ -13,22 +13,33 @@ export default function RegisterPage() {
   });
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setError("");
+    setLoading(true);
 
-    const res = await fetch("/api/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-    if (!res.ok) {
-      setError("Registration failed");
-      return;
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || "Registration failed");
+        return;
+      }
+
+      router.push("/login");
+    } catch (err) {
+      setError("Network error. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    router.push("/login");
   }
 
   return (
@@ -86,9 +97,10 @@ export default function RegisterPage() {
 
         <button
           type="submit"
-          className="w-full bg-black text-white py-2 rounded"
+          disabled={loading}
+          className="w-full bg-black text-white py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Register
+          {loading ? "Registering..." : "Register"}
         </button>
       </form>
 

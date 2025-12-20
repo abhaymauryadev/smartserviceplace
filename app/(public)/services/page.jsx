@@ -1,16 +1,18 @@
 import Link from "next/link";
+import { connectDB } from "@/lib/db";
+import Service from "@/models/Service";
 
 async function getServices() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/services`,
-    { cache: "no-store" }
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch services");
+  try {
+    await connectDB();
+    const services = await Service.find({ isActive: true })
+      .populate("provider", "name")
+      .lean();
+    return services || [];
+  } catch (error) {
+    console.error("Error fetching services:", error);
+    return [];
   }
-
-  return res.json();
 }
 
 export default async function ServicesPage() {
@@ -26,33 +28,42 @@ export default async function ServicesPage() {
         <p className="text-gray-500">No services found.</p>
       )}
 
-      <div className="grid md:grid-cols-3 gap-6">
-        {services.map((service) => (
-          <div
-            key={service._id}
-            className="border rounded p-4"
-          >
-            <h2 className="font-semibold text-lg">
-              {service.title}
-            </h2>
+      {services.length > 0 && (
+        <div className="grid md:grid-cols-3 gap-6">
+          {services.map((service) => {
+            const description = service.description || "";
+            const truncatedDescription = description.length > 80 
+              ? `${description.slice(0, 80)}...` 
+              : description;
 
-            <p className="text-sm text-gray-600 mt-1">
-              {service.description.slice(0, 80)}...
-            </p>
+            return (
+              <div
+                key={service._id}
+                className="border rounded p-4"
+              >
+                <h2 className="font-semibold text-lg">
+                  {service.title}
+                </h2>
 
-            <p className="mt-2 font-medium">
-              ₹{service.price}
-            </p>
+                <p className="text-sm text-gray-600 mt-1">
+                  {truncatedDescription}
+                </p>
 
-            <Link
-              href={`/services/${service._id}`}
-              className="inline-block mt-3 text-sm underline"
-            >
-              View Details
-            </Link>
-          </div>
-        ))}
-      </div>
+                <p className="mt-2 font-medium">
+                  ₹{service.price}
+                </p>
+
+                <Link
+                  href={`/services/${service._id}`}
+                  className="inline-block mt-3 text-sm underline"
+                >
+                  View Details
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </main>
   );
 }

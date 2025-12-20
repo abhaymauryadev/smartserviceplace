@@ -1,13 +1,18 @@
 import { notFound } from "next/navigation";
+import { connectDB } from "@/lib/db";
+import Service from "@/models/Service";
 
 async function getService(id) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/services/${id}`,
-    { cache: "no-store" }
-  );
-
-  if (!res.ok) return null;
-  return res.json();
+  try {
+    await connectDB();
+    const service = await Service.findOne({ _id: id, isActive: true })
+      .populate("provider", "name")
+      .lean();
+    return service;
+  } catch (error) {
+    console.error("Error fetching service:", error);
+    return null;
+  }
 }
 
 export default async function ServiceDetailsPage({ params }) {
