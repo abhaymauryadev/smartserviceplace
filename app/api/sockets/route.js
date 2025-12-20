@@ -1,29 +1,24 @@
-import { Server } from "socket.io";
+// Note: Socket.io in Next.js App Router requires a custom server setup
+// This route handler pattern doesn't work for Socket.io in App Router
+// Socket.io should be initialized in a custom server or use lib/socket.js
+// For now, this is a placeholder that won't break the build
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+export async function GET() {
+  return new Response(
+    JSON.stringify({ message: "Socket.io requires custom server setup" }),
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+}
 
-export default function handler(req, res) {
-  if (!res.socket.server.io) {
-    const io = new Server(res.socket.server, {
-      path: "/api/socket",
-    });
-
-    io.on("connection", (socket) => {
-      socket.on("join-booking", (bookingId) => {
-        socket.join(bookingId);
-      });
-
-      socket.on("booking-update", ({ bookingId, status }) => {
-        io.to(bookingId).emit("booking-status", status);
-      });
-    });
-
-    res.socket.server.io = io;
-  }
-
-  res.end();
+export async function POST() {
+  return new Response(
+    JSON.stringify({ message: "Socket.io requires custom server setup" }),
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    }
+  );
 }
