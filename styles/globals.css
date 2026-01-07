@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+/* =========================
+   Global Reset
+========================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* =========================
+   Root Variables (Theme)
+========================= */
+:root {
+    --background: #ffffff;
+    --foreground: #0f172a;
+
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+
+    --secondary: #64748b;
+    --border: #e5e7eb;
+
+    --success: #16a34a;
+    --danger: #dc2626;
+
+    --radius: 8px;
+    --font-base: 16px;
+
+    --font-alegreya-sans: 'Alegreya Sans', sans-serif;
+    --font-merriweather: 'Merriweather', serif;
+    --primary-color: #0050B5;
+    --secondary-color: #0050B5;
+    --tertiary-color: #00AAB5;
+
+    /* Primary-UI colors */
+    --primary-dark-color: #003A85;
+    --primary-main-color: #0050B5;
+    --primary-light-color: #4D8FE0;
+    --primary-soft-color: #E6F0FA;
+
+    /* Secondary-UI colors */
+    --secondary-dark-color: #080080;
+    --secondary-main-color: #0B00B5;
+    --secondary-light-color: #5B52E5;
+    --secondary-soft-color: #ECEBFF;
+
+    /* Tertiary-UI colors */
+    --tertiary-dark-color: #007A82;
+    --tertiary-main-color: #00AAB5;
+    --tertiary-light-color: #4FD6DE;
+    --tertiary-soft-color: #E6F9FA;
+
+    /* Functional colors */
+    --success-main-color: #16A34A;
+    --success-light-color: #DCFCE7;
+
+    --error-main-color: #DC2626;
+    --error-light-color: #FEE2E2;
+
+    --warning-main-color: #F59E0B;
+    --warning-light-color: #FEF3C7;
+
+    --info-main-color: #00AAB5;
+    --info-light-color: #E6F9FA;
+
+    /* Netural-UI  colors */
+    --text-primary-color: #0F172A;
+    --text-secondary-color: #475569;
+    --text-muted-color: #94A3BB;
+
+    --border-light: #E2E8F0;
+    --border-default: #CBD5E1;
+
+    --background-default: #FFFFFF;
+    --background-soft: #F8FAFC;
+    --background-card: #F1F5F9;
+}
+
+/* Dark mode support */
+[data-theme="dark"] {
+    --background: #020617;
+    --foreground: #e5e7eb;
+
+    --border: #1e293b;
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-alegreya-sans: var(--font-alegreya-sans);
+    --font-merriweather: var(--font-merriweather);
+
+    /* Primary-UI colors */
+    --color-primary-color: var(--primary-color);
+    --color-secondary-color: var(--secondary-color);
+    --color-tertiary-color: var(--tertiary-color);
+
+    /* Functional colors */
+    --color-success-color: var(--success-main-color);
+    --color-success-light-color: var(--success-light-color);
+
+    --color-error-color: var(--error-main-color);
+    --color-error-light-color: var(--error-light-color);
+
+    --color-warning-color: var(--warning-main-color);
+    --color-warning-light-color: var(--warning-light-color);
+
+    --color-info-color: var(--info-main-color);
+    --color-info-light-color: var(--info-light-color);
+
+    /* Netural-UI  colors */
+    --color-text-primary-color: var(--text-primary-color);
+    --color-text-secondary-color: var(--text-secondary-color);
+    --color-text-muted-color: var(--text-muted-color);
+
+    --color-border-light: var(--border-light);
+    --color-border-default: var(--border-default);
+
+    --color-background-default: var(--background-default);
+    --color-background-soft: var(--background-soft);
+    --color-background-card: var(--background-card);
+}
+
+/* =========================
+   Base Styles
+========================= */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+
+    font-size: var(--font-base);
+    background-color: var(--background);
+    color: var(--foreground);
+    line-height: 1.6;
+}
+
+/* =========================
+   Common Elements
+========================= */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+input,
+textarea {
+    font: inherit;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 0.6rem 0.75rem;
+}
+
+/* =========================
+   Utility Classes
+========================= */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-muted {
+    color: var(--secondary);
+}
