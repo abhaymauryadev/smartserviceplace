@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
 import { IoLogoApple } from "react-icons/io5";
 
 export default function RegisterPage() {
@@ -44,10 +43,7 @@ export default function RegisterPage() {
     }
   }
 
-  const handleOAuthLogin = async (providers) => {
-    setError("");
-    await signIn(providers, { callbackUrl: "/dashboard" });
-  };
+ 
 
   return (
     <>
