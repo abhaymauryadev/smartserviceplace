@@ -107,64 +107,85 @@ export default function RegisterPage() {
         <div className="flex flex-col  ">
           <label className="font-semibold text-gray-700">I want to...</label>
           <div className="w-full border mb-3 mt-3">
-          <div
-            onClick={handleToggle}
-            className={`relative w-full h-10 flex items-center justify-between  cursor-pointer transition-colors ${
-              role === "user" ? "bg-blue-500" : "bg-green-500"
-            }`}
-          >
             <div
-              className={`absolute w-24 h-10 bg-white  flex items-center justify-between shadow-md transform transition-transform ${
-                role === "user" ? "translate-x-0" : "translate-x-24"
-              }`}
-            />
-            <span
-              className={`w-24 text-center z-10 text-sm font-medium ${
-                role === "user" ? "text-blue-700" : "text-white"
+              onClick={handleToggle}
+              className={`relative w-full h-10 flex items-center justify-between  cursor-pointer transition-colors ${
+                role === "user" ? "bg-blue-500" : "bg-green-500"
               }`}
             >
-              User
-            </span>
-            <span
-              className={`w-24 text-center z-10 text-sm font-medium ${
-                role === "provider" ? "text-green-700" : "text-white"
-              }`}
-            >
-              Provider
-            </span>
+              <div
+                className={`absolute w-24 h-10 bg-white  flex items-center justify-between shadow-md transform transition-transform ${
+                  role === "user" ? "translate-x-0" : "translate-x-24"
+                }`}
+              />
+              <span
+                className={`w-24 text-center z-10 text-sm font-medium ${
+                  role === "user" ? "text-blue-700" : "text-white"
+                }`}
+              >
+                User
+              </span>
+              <span
+                className={`w-24 text-center z-10 text-sm font-medium ${
+                  role === "provider" ? "text-green-700" : "text-white"
+                }`}
+              >
+                Provider
+              </span>
+            </div>
           </div>
-        </div>
         </div>
 
         {error && <p className="mb-3 text-red-500 text-sm">{error}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Name"
-            className="w-full border p-2 rounded"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            required
-          />
+          <div className="flex flex-col gap-2">
+            <label htmlFor="text" className="font-semibold text-gray-700">
+              Name
+            </label>
+            <div className="flex items-center border border-gray-400  rounded p-2 w-full">
+              <input
+                type="text"
+                placeholder="Name"
+                className="flex-1 outline-none"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                required
+              />
+            </div>
+          </div>
 
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full border p-2 rounded"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            required
-          />
+          <div className="flex flex-col gap-2">
+            <label htmlFor="email" className="font-semibold text-gray-700">
+              Email Address
+            </label>
+            <div className="flex items-center border border-gray-400  rounded p-2 w-full">
+              <input
+                type="email"
+                placeholder="Email"
+                className="flex-1 outline-none"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                required
+              />
+            </div>
+          </div>
 
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full border p-2 rounded"
-            value={form.password}
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-            required
-          />
+          <div className="flex flex-col gap-2">
+            <label htmlFor="" className="font-semibold text-gray-700">
+                Password
+            </label>
+          </div>
+          <div className="flex items-center border border-gray-400  rounded p-2 w-full">
+            <input
+              type="password"
+              placeholder="Password"
+              className="flex-1 outline-none"
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              required
+            />
+          </div>
 
           <button
             type="submit"
