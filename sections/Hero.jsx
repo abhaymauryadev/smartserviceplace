@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex items-center justify-between px-8 ">
+    <section className="min-h-screen flex items-center bg-gray-100 justify-between px-8 ">
       {/* Left side: text + buttons */}
       <div className="max-w-7xl  flex flex-col justify-center items-center ">
         <h1 className="text-7xl font-bold mb-4">
@@ -17,17 +17,17 @@ export default function Hero() {
           From home cleaning to handyman tasks, connect with verified <br /> professional in your area.
         </p>
 
-        <div className="flex gap-38 w-full">
+        <div className="flex justify-center items-center gap-20 w-full">
           <Link
             href="/services"
-            className="px-16 py-3 bg-black text-white rounded"
+            className="px-23 py-3 bg-blue-500 text-white rounded"
           >
             Browse Services
           </Link>
 
           <Link
             href="/register"
-            className="px-16 py-3 border rounded"
+            className="px-23 py-3 border hover:bg-gray-200 rounded"
           >
             Become a Provider
           </Link>
