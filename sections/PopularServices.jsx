@@ -6,7 +6,7 @@ export default function PopularServices() {
   return (
     <div className="h-full  ">
       <div>
-        <h1 className="text-4xl text-center font-bold pt-16 pb-16">
+        <h1 className="text-4xl text-center font-bold pt-16 pb-16 text-black">
           Popular Services
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-5 gap-5 max-w-8xl mx-auto">

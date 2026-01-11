@@ -7,7 +7,7 @@ export default function Hero() {
     <section className="min-h-screen flex items-center bg-gray-100 justify-between px-8 ">
       {/* Left side: text + buttons */}
       <div className="max-w-7xl  flex flex-col justify-center items-center ">
-        <h1 className="text-7xl font-bold mb-4">
+        <h1 className="text-7xl font-bold mb-4 text-black">
           Find & Book Trusted <br />
           Local Services, <br />
           Instantly.
@@ -27,7 +27,7 @@ export default function Hero() {
 
           <Link
             href="/register"
-            className="px-23 py-3 border hover:bg-gray-200 rounded"
+            className="px-23 py-3 border text-black hover:bg-gray-200 rounded"
           >
             Become a Provider
           </Link>

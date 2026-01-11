@@ -23,11 +23,11 @@ export default function Navbar() {
             className="rounded-full"
           />
 
-          <h1 className="text-2xl"> Smart Service Marketplace</h1>
+          <h1 className="text-2xl text-black"> Smart Service Marketplace</h1>
         </Link>
       </div>
 
-      <div className="flex gap-8 items-center">
+      <div className="flex gap-8 items-center text-black">
         <Link href="/services">Services</Link>
         <Link href="/services">How It Works</Link>
         <Link href="/services">For Providers</Link>

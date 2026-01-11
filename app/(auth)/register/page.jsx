@@ -107,29 +107,34 @@ export default function RegisterPage() {
           neighborhood
         </p>
 
-        <div className="flex flex-col  ">
-          <label className="font-semibold text-gray-700">I want to...</label>
-          <div className="w-full border mb-3 mt-3">
+        <div className="flex flex-col">
+          <label className="font-semibold text-gray-700 mb-2">
+            I want to...
+          </label>
+          <div className="w-full border  rounded-md overflow-hidden">
             <div
               onClick={handleToggle}
-              className={`relative w-full h-10 flex  items-center justify-between  cursor-pointer transition-colors ${
+              className={`relative w-full h-10 flex items-center justify-between cursor-pointer transition-colors ${
                 role === "user" ? "bg-blue-500" : "bg-green-500"
               }`}
             >
+              {/* Sliding indicator */}
               <div
-                className={`absolute w-48 h-10 bg-white  flex items-center justify-between shadow-md transform transition-transform  ${
-                  role === "user" ? "translate-x-0" : "translate-x-48"
+                className={`absolute w-1/2 h-10 bg-white flex items-center justify-center shadow-md transform transition-transform ${
+                  role === "user" ? "translate-x-0" : "translate-x-full"
                 }`}
               />
+
+              {/* Labels */}
               <span
-                className={`w-24 text-center z-10 text-sm font-medium ${
+                className={`w-1/2 text-center z-10 text-sm font-medium ${
                   role === "user" ? "text-blue-700" : "text-white"
                 }`}
               >
                 User
               </span>
               <span
-                className={`w-24 text-center z-10 text-sm font-medium ${
+                className={`w-1/2 text-center z-10 text-sm font-medium ${
                   role === "provider" ? "text-green-700" : "text-white"
                 }`}
               >
@@ -155,7 +160,7 @@ export default function RegisterPage() {
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 required
               />
-            <User className="text-gray-500 ml-2" />
+              <User className="text-gray-500 ml-2" />
             </div>
           </div>
 
@@ -172,18 +177,18 @@ export default function RegisterPage() {
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 required
               />
-               <Mail className="text-gray-500 ml-2" />
+              <Mail className="text-gray-500 ml-2" />
             </div>
           </div>
 
           <div className="flex flex-col gap-2">
             <label htmlFor="password" className="font-semibold text-gray-700">
-                Password
+              Password
             </label>
           </div>
           <div className="flex items-center border border-gray-400  rounded p-2 w-full">
             <input
-               id="password"
+              id="password"
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               className="flex-1 outline-none"
@@ -191,20 +196,20 @@ export default function RegisterPage() {
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               required
             />
-             {showPassword ? (
-                <EyeOff
-                  className="text-gray-500 ml-2 cursor-pointer"
-                  onClick={() => setShowPassword(false)}
-                />
-              ) : (
-                <Eye
-                  className="text-gray-500 ml-2 cursor-pointer"
-                  onClick={() => setShowPassword(true)}
-                />
-              )}
+            {showPassword ? (
+              <EyeOff
+                className="text-gray-500 ml-2 cursor-pointer"
+                onClick={() => setShowPassword(false)}
+              />
+            ) : (
+              <Eye
+                className="text-gray-500 ml-2 cursor-pointer"
+                onClick={() => setShowPassword(true)}
+              />
+            )}
           </div>
-          
-           <div className="flex items-center justify-between mt-2">
+
+          <div className="flex items-center justify-between mt-2">
             <label className="flex items-center gap-2 text-sm text-gray-600">
               <input
                 type="checkbox"
@@ -212,7 +217,9 @@ export default function RegisterPage() {
                 onChange={(e) => setRememberMe(e.target.checked)}
                 className="accent-blue-600"
               />
-               I agreed to the <span className="text-blue-600">Terms of Service</span> and <span className="text-blue-600"> Privacy Policy</span> 
+              I agreed to the{" "}
+              <span className="text-blue-600">Terms of Service</span> and{" "}
+              <span className="text-blue-600"> Privacy Policy</span>
             </label>
           </div>
           <button
@@ -224,15 +231,13 @@ export default function RegisterPage() {
           </button>
         </form>
 
-       
-        
         {/* Divider */}
         <div className="relative my-4">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-200 dark:border-gray-700"></div>
+            <div className="w-full border-t border-gray-200 "></div>
           </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-4 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-medium">
+          <div className="relative flex  justify-center text-sm">
+            <span className="px-4 bg-white  text-gray-500  font-medium">
               Or continue with
             </span>
           </div>
@@ -275,7 +280,7 @@ export default function RegisterPage() {
           </button>
         </div>
 
-         <p className="text-sm mt-4 text-center">
+        <p className="text-sm mt-4 text-center">
           Already have an account?{" "}
           <a href="/login" className=" text-blue-500">
             Login
@@ -285,4 +290,3 @@ export default function RegisterPage() {
     </section>
   );
 }
-
