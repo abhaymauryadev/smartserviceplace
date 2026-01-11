@@ -11,17 +11,18 @@ export default async function DashboardLayout({ children }) {
   }
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex sticky top-0">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-white p-5">
+      <aside className="w-64 bg-gray-900 text-white p-5 sticky top-0">
         <h2 className="text-xl font-bold mb-6">Dashboard</h2>
 
-        <nav className="space-y-3 text-sm">
+        <nav className="space-y-6 text-sm  flex flex-col ">
           {session.user.role === "user" && (
             <>
-              <Link href="/dashboard/user">Home</Link>
-              <Link href="/dashboard/user/bookings">My Bookings</Link>
+              <Link href="/dashboard/user">Dashboard</Link>
+              <Link href="/dashboard/user/bookings">Book a Service</Link>
               <Link href="/dashboard/user/profile">Profile</Link>
+              <Link href="/dashboard/user/profile">Notifications</Link>
             </>
           )}
 
@@ -37,7 +38,7 @@ export default async function DashboardLayout({ children }) {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 bg-gray-50">{children}</main>
+      <main className="flex-1  bg-gray-50">{children}</main>
     </div>
   );
 }
