@@ -27,7 +27,7 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <div className="flex gap-8 items-center text-black">
+      <div className="flex gap-8 items-center text-black justify-center">
         <Link href="/services">Services</Link>
         <Link href="/services">How It Works</Link>
         <Link href="/services">For Providers</Link>
@@ -43,19 +43,19 @@ export default function Navbar() {
           <Link href="/login">Login</Link>
         )} */}
 
-        <div className="flex gap-4 ">
+        <div className="flex   gap-4 ">
           <Link
             href="/login"
-            className="hover:border px-4 py-2 w-24 text-center  rounded "
+            className="bg-blue-500 hover:bg-blue-600 text-white flex justify-center px-3 py-3 w-[8rem] text-center rounded "
           >
-            Login
+            Get Started 
           </Link>
-          <Link
+          {/* <Link
             href="/register"
             className="hover:border-none border px-4 py-2 w-24 text-center text-white  bg-blue-500 rounded hover:bg-blue-600"
           >
             Register
-          </Link>
+          </Link> */}
         </div>
       </div>
     </nav>

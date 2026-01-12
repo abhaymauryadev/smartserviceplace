@@ -23,7 +23,7 @@ export default async function Header() {
       {/* User Info */}
       <div className="flex items-center justify-center gap-3 ml-6">
         <div className="text-right leading-tight">
-          <p className="text-sm font-semibold text-gray-900">
+          <p className="text-sm font-semibold capitalize text-gray-900">
             {session?.user?.name}
           </p>
           <p className="text-xs text-gray-500">

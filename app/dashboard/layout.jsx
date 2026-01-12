@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import Link from "next/link";
+// import Header from "@/components/common/Header";
 
 export default async function DashboardLayout({ children }) {
   const session = await getServerSession(authOptions);
@@ -11,6 +12,7 @@ export default async function DashboardLayout({ children }) {
   }
 
   return (
+    // <Header/>
     <div className="min-h-screen flex sticky top-0">
       {/* Sidebar */}
       <aside className="w-64 bg-gray-900 text-white p-5 sticky top-0">
