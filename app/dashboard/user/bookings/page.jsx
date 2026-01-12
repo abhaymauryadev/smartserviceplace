@@ -53,7 +53,7 @@ export default async function UserBookingsPage() {
         <Header/>
 
         {/* Content */}
-        <div className="p-6 grid grid-cols-1 lg:grid-cols-3 gap-6 ">
+        <div className="p-6 grid grid-cols-1 lg:grid-cols-3 gap-6 text-black">
           {/* Left Form */}
           <div className="lg:col-span-2 space-y-6">
             <div>

@@ -46,7 +46,7 @@ export default function Navbar() {
         <div className="flex   gap-4 ">
           <Link
             href="/login"
-            className="bg-blue-500 hover:bg-blue-600 text-white flex justify-center px-3 py-3 w-[8rem] text-center rounded "
+            className="bg-blue-500 hover:bg-blue-600 text-white flex justify-center px-3 py-3 w-32 text-center rounded "
           >
             Get Started 
           </Link>
