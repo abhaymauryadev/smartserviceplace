@@ -7,6 +7,10 @@ import {
     CirclePlus,
     User,
     Bell,
+    LayoutList,
+    Notebook,
+    Banknote,
+    Calendar,
 } from "lucide-react";
 
 export default function SidebarNav({ role }) {
@@ -64,25 +68,35 @@ export default function SidebarNav({ role }) {
                 <Link href="/dashboard/provider">
                     <div className={linkClass("/dashboard/provider", true)}>
                         <LayoutDashboard size={18} />
-                        Home
+                        Dashboard
                     </div>
                 </Link>
 
                 <Link href="/dashboard/provider/services">
                     <div className={linkClass("/dashboard/provider/services")}>
+                        <LayoutList size={18} />
                         My Services
                     </div>
                 </Link>
 
                 <Link href="/dashboard/provider/bookings">
                     <div className={linkClass("/dashboard/provider/bookings")}>
+                    <Notebook size={18} />
                         Bookings
                     </div>
                 </Link>
 
-                <Link href="/dashboard/provider/analytics">
-                    <div className={linkClass("/dashboard/provider/analytics")}>
-                        Analytics
+                <Link href="/dashboard/provider/calendar">
+                    <div className={linkClass("/dashboard/provider/calendar")}>
+                    <Calendar size={18} />
+                        Calendar
+                    </div>
+                </Link>
+
+                <Link href="/dashboard/provider/earnings">
+                    <div className={linkClass("/dashboard/provider/earnings")}>
+                    <Banknote size={18} />
+                        Earnings
                     </div>
                 </Link>
             </>
