@@ -3,44 +3,42 @@ import { authOptions } from "@/lib/auth";
 import { connectDB } from "@/lib/db";
 import Service from "@/models/Service";
 
+import ServicesHeader from "@/components/Service/ServiceHeader";
+import ServiceFilters from "@/components/Service/ServiceFilters";
+import ServiceCard from "@/components/Service/ServiceCard";
+import EmptyServices from "@/components/Service/EmptyServices";
+
 async function getServices(providerId) {
-  try {
-    await connectDB();
-    const services = await Service.find({ provider: providerId })
-      .populate("provider", "name")
-      .lean();
-    return services || [];
-  } catch (error) {
-    console.error("Error fetching services:", error);
-    return [];
-  }
+  await connectDB();
+  return Service.find({ provider: providerId }).lean();
 }
 
 export default async function ProviderServicesPage() {
   const session = await getServerSession(authOptions);
-  const services = await getServices(session?.user?.id);
+  const services = await getServices(session.user.id);
 
   return (
-    <>
-      <h1 className="text-xl font-bold mb-4">My Services</h1>
+    <div className="p-4 sm:p-6 space-y-6 text-black">
+      <ServicesHeader />
 
-      {services.length === 0 && (
-        <p className="text-gray-500">No services yet.</p>
-      )}
+      <ServiceFilters />
 
-      {services.length > 0 && (
-        <ul className="space-y-3">
-          {services.map((s) => (
-            <li
-              key={s._id}
-              className="border rounded p-4 bg-white"
-            >
-              <p className="font-medium">{s.title}</p>
-              <p className="text-sm">₹{s.price}</p>
-            </li>
+      {services.length === 0 ? (
+        <EmptyServices />
+      ) : (
+        <div className="
+          grid 
+          grid-cols-1 
+          sm:grid-cols-2 
+          lg:grid-cols-3 
+          xl:grid-cols-4 
+          gap-6
+        ">
+          {services.map((service) => (
+            <ServiceCard key={service._id} service={service} />
           ))}
-        </ul>
+        </div>
       )}
-    </>
+    </div>
   );
 }

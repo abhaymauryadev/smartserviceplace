@@ -16,7 +16,7 @@ export default async function DashboardLayout({ children }) {
   return (
     <div className="min-h-screen flex h-screen">
       {/* Sidebar */}
-      <aside className="w-64 bg-white p-5 flex flex-col border-r shadow-md">
+      <aside className="w-64 bg-white p-5 flex flex-col border-r border-gray-300 shadow-lg">
         <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-black">
           <Image
             src="/favicon.svg"
@@ -28,7 +28,7 @@ export default async function DashboardLayout({ children }) {
           Smart Service
         </h2>
 
-        <nav className="space-y-2 text-sm flex flex-col flex-1">
+        <nav className="space-y-2 text-sm flex flex-col flex-1 ">
           <SidebarNav role={session.user.role} />
         </nav>
 
@@ -39,7 +39,7 @@ export default async function DashboardLayout({ children }) {
       </aside>
 
       {/* Main */}
-      <main className="flex-1 bg-white">{children}</main>
+      <main className="flex-1 bg-white ">{children}</main>
     </div>
   );
 }

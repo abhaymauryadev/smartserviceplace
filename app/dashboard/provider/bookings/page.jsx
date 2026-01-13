@@ -3,54 +3,44 @@ import { authOptions } from "@/lib/auth";
 import { connectDB } from "@/lib/db";
 import Booking from "@/models/Booking";
 
+import BookingsHeader from "@/components/booking/BookingsHeader";
+import BookingStatus from "@/components/booking/BookingStatus";
+import BookingFilters from "@/components/booking/BookingFilters";
+import BookingTabs from "@/components/booking/BookingTabs";
+import BookingCard from "@/components/booking/BookingCard";
+import EmptyBookings from "@/components/booking/EmptyBookings";
+
 async function getBookings(providerId) {
-  try {
-    await connectDB();
-    const bookings = await Booking.find({ provider: providerId })
-      .populate("service")
-      .populate("user", "name")
-      .lean();
-    return bookings || [];
-  } catch (error) {
-    console.error("Error fetching bookings:", error);
-    return [];
-  }
+  await connectDB();
+  return Booking.find({ provider: providerId })
+    .populate("service")
+    .populate("user", "name")
+    .lean();
 }
 
 export default async function ProviderBookingsPage() {
   const session = await getServerSession(authOptions);
-  const bookings = await getBookings(session?.user?.id);
+  const bookings = await getBookings(session.user.id);
 
   return (
-    <>
-      <h1 className="text-xl font-bold mb-4">
-        Incoming Bookings
-      </h1>
+    <div className="p-4 sm:p-6 space-y-6 text-black">
+      <BookingsHeader user={session.user} />
 
-      {bookings.length === 0 && (
-        <p className="text-gray-500">No bookings yet.</p>
-      )}
+      <BookingStatus bookings={bookings} />
 
-      {bookings.length > 0 && (
-        <ul className="space-y-3">
-          {bookings.map((b) => (
-            <li
-              key={b._id}
-              className="border rounded p-4 bg-white"
-            >
-              <p className="font-medium">
-                {b.service?.title || "Service"}
-              </p>
-              <p className="text-sm">
-                User: {b.user?.name || "Unknown"}
-              </p>
-              <p className="text-sm">
-                Status: {b.status}
-              </p>
-            </li>
+      <BookingFilters />
+
+      <BookingTabs />
+
+      {bookings.length === 0 ? (
+        <EmptyBookings />
+      ) : (
+        <div className="space-y-4">
+          {bookings.map((booking) => (
+            <BookingCard key={booking._id} booking={booking} />
           ))}
-        </ul>
+        </div>
       )}
-    </>
+    </div>
   );
 }
