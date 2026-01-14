@@ -8,7 +8,7 @@ export default async function UserDashboard() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <DashboardUI user={session?.user} />
 
     </>

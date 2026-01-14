@@ -23,7 +23,7 @@ export default function NotificationsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-6 border-b mb-6 text-sm">
+      <div className="flex gap-6 border-b mb-6 text-sm sticky top-0">
         <button className="pb-3 text-blue-600 border-b-2 border-blue-600 font-medium">
           All
         </button>
@@ -39,7 +39,7 @@ export default function NotificationsPage() {
       </div>
 
       {/* Notifications List */}
-      <div className="space-y-4">
+      <div className="space-y-4 overflow-y-auto">
         {/* Notification 1 */}
         <div className="bg-white border rounded-xl p-5 flex gap-4">
           <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">

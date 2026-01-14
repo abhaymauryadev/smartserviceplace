@@ -8,10 +8,10 @@ import interactionPlugin from "@fullcalendar/interaction";
 
 export default function ProviderCalendar({ events }) {
   return (
-    <div className="bg-white p-4 rounded-xl border text-black">
-      <div className="flex justify-between items-center mb-4">
+    <div className="bg-white p-7 rounded-xl h-screen text-black">
+      <div className="flex justify-between items-center mb-4 ">
         <div>
-          <h1 className="text-xl font-bold">Bookings Calendar</h1>
+          <h1 className="text-2xl font-bold  ">Bookings Calendar</h1>
           <p className="text-sm text-gray-500">
             View your upcoming jobs and manage availability.
           </p>
@@ -49,7 +49,7 @@ export default function ProviderCalendar({ events }) {
         }
       />
 
-      <div className="flex gap-4 mt-4 text-sm">
+      <div className="flex gap-4 mt-4 text-sm ">
         <Legend color="bg-blue-600" label="Confirmed Booking" />
         <Legend color="bg-orange-500" label="Pending Approval" />
       </div>

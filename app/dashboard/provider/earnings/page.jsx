@@ -5,7 +5,7 @@ export default async function ProviderEarningsPage() {
   const session = await getServerSession(authOptions);
 
   return (
-    <div className="space-y-6 text-black">
+    <div className="space-y-6 text-black p-7 ">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -124,9 +124,8 @@ export default async function ProviderEarningsPage() {
 function StatCard({ title, value, badge, highlight }) {
   return (
     <div
-      className={`p-4 rounded-xl border bg-white ${
-        highlight ? "ring-2 ring-blue-500" : ""
-      }`}
+      className={`p-4 rounded-xl border bg-white ${highlight ? "ring-2 ring-blue-500" : ""
+        }`}
     >
       <p className="text-sm text-gray-500">{title}</p>
       <p className="text-2xl font-bold mt-1">{value}</p>
@@ -159,11 +158,10 @@ function TransactionRow({ service, customer, date, status, amount }) {
       <td className="py-3 text-gray-600">{date}</td>
       <td className="py-3">
         <span
-          className={`text-xs px-2 py-1 rounded ${
-            status === "Completed"
+          className={`text-xs px-2 py-1 rounded ${status === "Completed"
               ? "bg-green-100 text-green-700"
               : "bg-yellow-100 text-yellow-700"
-          }`}
+            }`}
         >
           {status}
         </span>
