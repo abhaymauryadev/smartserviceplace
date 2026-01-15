@@ -19,7 +19,7 @@ export default function LogoutButton() {
 
       {/* Modal */}
       {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 ">
           <div className="bg-white rounded-lg shadow-lg w-full max-w-sm p-6">
             <div className="flex flex-col items-center text-center">
               <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mb-3">

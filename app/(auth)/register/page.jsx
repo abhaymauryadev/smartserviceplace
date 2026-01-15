@@ -56,9 +56,9 @@ export default function RegisterPage() {
   }
 
   return (
-    <section className="flex h-screen w-full bg-white text-black ">
+    <section className="flex flex-col md:flex-row h-screen w-full bg-white text-black ">
       {/* Left side image */}
-      <div className="relative flex w-1/2 h-full ">
+      <div className="relative flex hidden md:flex md:w-1/2 h-full ">
         <Image
           src="/assets/Sign-up-image.png"
           alt="Login illustration"
@@ -100,8 +100,8 @@ export default function RegisterPage() {
       </div>
 
       {/* Right side form */}
-      <div className="flex flex-col justify-center w-1/2 px-48">
-        <h1 className="text-4xl font-bold mb-2">Create Account</h1>
+      <div className="flex flex-col justify-center w-full md:w-1/2 p-8 md:p-12 lg:p-24 xl:p-32 2xl:p-48 min-h-screen">
+        <h1 className="text-3xl md:text-4xl font-bold mb-2">Create Account</h1>
         <p className="text-sm mb-8">
           Get Started booking Services or offering your skills to the
           neighborhood
@@ -111,7 +111,7 @@ export default function RegisterPage() {
           <label className="font-semibold text-gray-700 mb-2">
             I want to...
           </label>
-          <div className="w-full border  rounded-md overflow-hidden">
+          <div className="w-full border  rounded-md overflow-hidden mb-3">
             <div
               onClick={handleToggle}
               className={`relative w-full h-10 flex items-center justify-between cursor-pointer transition-colors ${

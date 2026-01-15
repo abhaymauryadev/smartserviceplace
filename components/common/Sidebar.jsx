@@ -58,7 +58,7 @@ export default function Sidebar({ user }) {
                     <SidebarNav role={user.role} />
                 </nav>
 
-                <div className="flex justify-start items-center gap-3">
+                <div className="flex justify-start items-center gap-3 ">
                     <LogOut color="red" size={20} />
                     <LogoutButton />
                 </div>

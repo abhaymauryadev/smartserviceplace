@@ -39,9 +39,9 @@ export default function LoginPage() {
   };
 
   return (
-    <section className="flex h-screen w-full bg-white text-black ">
+    <section className="flex  h-screen w-full bg-white text-black ">
       {/* Left side image */}
-      <div className="relative flex w-1/2 h-full ">
+      <div className="relative flex hidden  md:flex md:w-1/2 h-full ">
         <Image
           src="/assets/Login-image.png"
           alt="Login illustration"
@@ -84,8 +84,8 @@ export default function LoginPage() {
       </div>
 
       {/* Right side form */}
-      <div className="flex flex-col justify-center w-1/2 px-48">
-        <h1 className="text-4xl font-bold mb-2">Welcome Back!</h1>
+      <div className="flex flex-col justify-center w-full md:w-1/2 p-8 md:px-12 lg:px-24 xl:px-32 2xl:px-48 min-h-screen">
+        <h1 className="text-3xl md:text-4xl  font-bold mb-2">Welcome Back!</h1>
         <p className="text-sm mb-8">Please enter your details to sign in.</p>
 
         {error && <p className="mb-3 text-red-500 text-sm">{error}</p>}
