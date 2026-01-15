@@ -210,7 +210,7 @@ export default function RegisterPage() {
           </div>
 
           <div className="flex items-center justify-between mt-2">
-            <label className="flex items-center gap-2 text-sm text-gray-600">
+            <label className="flex items-center lg:gap-2 md:gap-1  text-sm text-gray-600">
               <input
                 type="checkbox"
                 checked={rememberMe}

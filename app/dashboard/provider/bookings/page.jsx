@@ -26,11 +26,11 @@ export default async function ProviderBookingsPage() {
     <div className="p-4 sm:p-6 space-y-6 text-black">
       <BookingsHeader user={session.user} />
 
-      <BookingStatus bookings={bookings} />
-
+      <BookingStatus bookings={JSON.parse(JSON.stringify(bookings))} />
+    
       <BookingFilters />
 
-      <BookingTabs />
+      <BookingTabs  />
 
       {bookings.length === 0 ? (
         <EmptyBookings />
