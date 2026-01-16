@@ -22,7 +22,7 @@ export default async function ServicesPage() {
   return (
     <main className="max-w-6xl mx-auto px-4 py-10 text-black">
       <h1 className="text-3xl font-bold mb-6">
-      <Image src="" alt="" width={500} height={500} />
+      {/* <Image src="" alt="" width={500} height={500} /> */}
         Available Services
       </h1>
 

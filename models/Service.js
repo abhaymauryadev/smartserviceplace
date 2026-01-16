@@ -18,6 +18,17 @@ const ServiceSchema = new mongoose.Schema(
       required: true,
     },
 
+    pricingModel: {
+      type: String,
+      enum: ["fixed", "hourly"],
+      default: "fixed",
+    },
+
+    duration: {
+      type: Number, // in minutes
+      default: 60,
+    },
+
     category: {
       type: String,
       index: true,
@@ -26,7 +37,7 @@ const ServiceSchema = new mongoose.Schema(
     images: [String],
 
     provider: {
-      type: mongoose.Schema.Types.ObjectId ,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },

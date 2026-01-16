@@ -36,10 +36,12 @@ export async function POST(req) {
       title: body.title,
       description: body.description,
       price: body.price,
+      pricingModel: body.pricingModel,
+      duration: body.duration,
       category: body.category,
-      images: body.images,
-    })
-    return NextResponse(JSON.stringify(service), {status:201});
+      images: body.images || [],
+    });
+    return NextResponse.json(service, { status: 201 });
   } catch (error) {
     console.error("Error creating service:", error);
     return NextResponse.json(
