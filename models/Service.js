@@ -26,7 +26,7 @@ const ServiceSchema = new mongoose.Schema(
     images: [String],
 
     provider: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId ,
       ref: "User",
       required: true,
     },

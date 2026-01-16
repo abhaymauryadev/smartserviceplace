@@ -1,6 +1,8 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 export default function ServicesHeader() {
+  const router = useRouter();
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div>
@@ -12,7 +14,9 @@ export default function ServicesHeader() {
         </p>
       </div>
 
-      <button className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700">
+      <button className="bg-blue-600 text-white 
+      px-4 py-2 rounded-md text-sm hover:bg-blue-700 
+      " onClick={() => router.push("/ServiceForm")}>
         + Add New Service
       </button>
     </div>

@@ -7,6 +7,7 @@ import ServicesHeader from "@/components/Service/ServiceHeader";
 import ServiceFilters from "@/components/Service/ServiceFilters";
 import ServiceCard from "@/components/Service/ServiceCard";
 import EmptyServices from "@/components/Service/EmptyServices";
+import ServiceForm from "@/components/Service/ServiceForm";
 
 async function getServices(providerId) {
   await connectDB();
@@ -35,10 +36,11 @@ export default async function ProviderServicesPage() {
           gap-6
         ">
           {services.map((service) => (
-            <ServiceCard key={service._id} service={service} />
+            <ServiceCard key={service._id} images={service.images} service={service} />
           ))}
         </div>
       )}
+    <ServiceForm/>
     </div>
   );
 }

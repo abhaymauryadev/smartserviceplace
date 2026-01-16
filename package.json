@@ -27,6 +27,7 @@
     "react-server-dom-parcel": "^19.2.3",
     "react-server-dom-webpack": "^19.2.3",
     "react-snowfall": "^2.4.0",
+    "react-toast": "^1.0.3",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1"
   },

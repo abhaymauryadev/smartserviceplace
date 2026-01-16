@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { connectDB } from "@/lib/db";
 import Service from "@/models/Service";
+import Image from "next/image";
 
 async function getServices() {
   try {
     await connectDB();
     const services = await Service.find({ isActive: true })
       .populate("provider", "name")
-      .lean();
+      .lean()
     return services || [];
   } catch (error) {
     console.error("Error fetching services:", error);
@@ -19,8 +20,9 @@ export default async function ServicesPage() {
   const services = await getServices();
 
   return (
-    <main className="max-w-6xl mx-auto px-4 py-10">
+    <main className="max-w-6xl mx-auto px-4 py-10 text-black">
       <h1 className="text-3xl font-bold mb-6">
+      <Image src="" alt="" width={500} height={500} />
         Available Services
       </h1>
 
@@ -37,7 +39,10 @@ export default async function ServicesPage() {
               : description;
 
             return (
+
+            
               <div
+
                 key={service._id}
                 className="border rounded p-4"
               >

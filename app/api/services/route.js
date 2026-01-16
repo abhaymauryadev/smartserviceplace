@@ -22,19 +22,30 @@ export async function GET() {
 }
 
 export async function POST(req) {
-  const session = await getServerSession(authOptions);
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== "provider") {
+      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    }
 
-  if (!session || session.user.role !== "provider") {
-    return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    const body = await req.json();
+    await connectDB();
+
+    const service = await Service.create({
+      provider: session.user.id,
+      title: body.title,
+      description: body.description,
+      price: body.price,
+      category: body.category,
+      images: body.images,
+    })
+    return NextResponse(JSON.stringify(service), {status:201});
+  } catch (error) {
+    console.error("Error creating service:", error);
+    return NextResponse.json(
+      { message: "Failed to create service", error: error.message },
+      { status: 500 }
+    );
   }
 
-  const body = await req.json();
-  await connectDB();
-
-  const service = await Service.create({
-    ...body,
-    provider: session.user.id,
-  });
-
-  return NextResponse.json(service, { status: 201 });
 }

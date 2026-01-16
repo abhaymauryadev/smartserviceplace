@@ -25,31 +25,7 @@ export async function GET(req) {
     console.error(error);
     return NextResponse.json({ message: "Server Error" }, { status: 500 });
   }
-}
 
-export async function POST(req) {
-  try {
-    const session = await getServerSession(req, authOptions);
-    if (!session) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    }
-
-    const body = await req.json();
-    await connectDB();
-
-    const booking = await Booking.create({
-      ...body,
-      user: session.user.id,
-    });
-
-    return NextResponse.json(booking, { status: 201 });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ message: "Server Error" }, { status: 500 });
-  }
-}
-
-export async function GET(req) {
   try {
     const session = await getServerSession(req, authOptions);
     if (!session) {
@@ -76,4 +52,32 @@ export async function GET(req) {
     console.error(error);
     return NextResponse.json({ message: "Server Error" }, { status: 500 });
   }
+
+
 }
+
+export async function POST(req) {
+  try {
+    const session = await getServerSession(req, authOptions);
+    if (!session) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const body = await req.json();
+    await connectDB();
+
+    const booking = await Booking.create({
+      ...body,
+      user: session.user.id,
+    });
+
+    return NextResponse.json(booking, { status: 201 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ message: "Server Error" }, { status: 500 });
+  }
+}
+
+// export async function GET(req) {
+  
+// }
