@@ -1,8 +1,64 @@
 "use client";
 
-export default function EarningsChart() {
-  const data = [40, 65, 45, 80, 100, 60, 30];
-  const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+import { useEffect, useRef } from "react";
+import Chart from "chart.js/auto";
+
+export default function EarningsChart({ data, labels }) {
+  const chartRef = useRef(null);
+  const chartInstance = useRef(null);
+
+  useEffect(() => {
+    if (chartInstance.current) {
+      chartInstance.current.destroy();
+    }
+
+    const ctx = chartRef.current.getContext("2d");
+
+    chartInstance.current = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: labels || ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        datasets: [
+          {
+            label: "Earnings (₹)",
+            data: data || [0, 0, 0, 0, 0, 0, 0],
+            backgroundColor: "rgba(59, 130, 246, 0.5)", // blue-500
+            borderColor: "rgb(37, 99, 235)", // blue-600
+            borderWidth: 1,
+            borderRadius: 4,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: "rgba(0, 0, 0, 0.05)",
+            },
+          },
+          x: {
+            grid: {
+              display: false,
+            },
+          },
+        },
+      },
+    });
+
+    return () => {
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+      }
+    };
+  }, [data, labels]);
 
   return (
     <div className="bg-white border rounded-xl p-4 lg:col-span-2">
@@ -11,18 +67,8 @@ export default function EarningsChart() {
         <span className="text-sm text-gray-500">Last 7 days</span>
       </div>
 
-      <div className="flex items-end gap-3 h-48">
-        {data.map((value, i) => (
-          <div key={i} className="flex flex-col items-center flex-1">
-            <div
-              className={`w-full rounded-md ${
-                i === 4 ? "bg-blue-600" : "bg-blue-100"
-              }`}
-              style={{ height: `${value}%` }}
-            />
-            <span className="text-xs mt-2 text-gray-500">{days[i]}</span>
-          </div>
-        ))}
+      <div className="h-96">
+        <canvas ref={chartRef} />
       </div>
     </div>
   );

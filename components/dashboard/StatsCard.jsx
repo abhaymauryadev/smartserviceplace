@@ -2,38 +2,37 @@
 
 import { TrendingUp, Calendar, Star, Briefcase } from "lucide-react";
 
-const stats = [
-  {
-    title: "Total Earnings",
-    value: "₹12,450",
-    icon: TrendingUp,
-    change: "+12.5%",
-    color: "green",
-  },
-  {
-    title: "Total Bookings",
-    value: "1,204",
-    icon: Calendar,
-    change: "+8.2%",
-    color: "blue",
-  },
-  {
-    title: "Active Services",
-    value: "8",
-    icon: Briefcase,
-    change: "0 changed",
-    color: "gray",
-  },
-  {
-    title: "Average Rating",
-    value: "4.9",
-    icon: Star,
-    change: "+0.2",
-    color: "purple",
-  },
-];
-
-export default function StatsCards() {
+export default function StatsCards({ data }) {
+  const stats = [
+    {
+      title: "Total Earnings",
+      value: data?.totalEarnings ? `₹${data.totalEarnings.toLocaleString()}` : "₹0",
+      icon: TrendingUp,
+      change: data?.earningsChange || "0%",
+      color: "green",
+    },
+    {
+      title: "Total Bookings",
+      value: data?.totalBookings || "0",
+      icon: Calendar,
+      change: data?.bookingsChange || "0%",
+      color: "blue",
+    },
+    {
+      title: "Active Services",
+      value: data?.activeServices || "0",
+      icon: Briefcase,
+      change: data?.servicesChange || "0 changed",
+      color: "gray",
+    },
+    {
+      title: "Average Rating",
+      value: data?.averageRating || "0.0",
+      icon: Star,
+      change: data?.ratingChange || "+0.0",
+      color: "purple",
+    },
+  ];
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
       {stats.map((stat, i) => {
@@ -46,7 +45,7 @@ export default function StatsCards() {
             <div>
               <p className="text-sm text-gray-500">{stat.title}</p>
               <p className="text-2xl font-bold">{stat.value}</p>
-              <span className={`text-xs text-${stat.color}-600`}>
+              <span className={`text-xs text-${stat.color}-600 font-semibold`}>
                 {stat.change}
               </span>
             </div>
