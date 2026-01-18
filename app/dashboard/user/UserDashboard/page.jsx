@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 /* ✅ Tailwind-safe status colors */
@@ -9,58 +9,100 @@ const statusStyles = {
   blue: "bg-blue-100 text-blue-700",
   gray: "bg-gray-100 text-gray-700",
   red: "bg-red-100 text-red-700",
+  yellow: "bg-yellow-100 text-yellow-700",
+};
+
+// Helper function to get status display info
+const getStatusInfo = (status) => {
+  const statusMap = {
+    pending: { label: "Pending", color: "yellow", note: "Waiting for provider confirmation" },
+    accepted: { label: "Confirmed", color: "blue", note: "Booking confirmed" },
+    "in-progress": { label: "In Progress", color: "green", note: "Service in progress" },
+    completed: { label: "Completed", color: "gray", note: "Service completed successfully" },
+    cancelled: { label: "Cancelled", color: "red", note: "Booking cancelled" },
+    rejected: { label: "Rejected", color: "red", note: "Booking rejected by provider" },
+  };
+  return statusMap[status] || { label: status, color: "gray", note: "" };
+};
+
+// Helper function to format date
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", { weekday: "short", day: "numeric", month: "short" });
+};
+
+// Helper function to format time range
+const formatTimeRange = (startTime, endTime) => {
+  const start = new Date(startTime);
+  const end = new Date(endTime);
+  const startStr = start.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+  const endStr = end.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+  return `${startStr} – ${endStr}`;
 };
 
 export default function DashboardUI({ user }) {
   const [activeTab, setActiveTab] = useState("upcoming");
+  const [upcomingBookings, setUpcomingBookings] = useState([]);
+  const [bookingHistory, setBookingHistory] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const upcomingBookings = [
-    {
-      title: "Deep House Cleaning",
-      provider: "ProClean Services",
-      status: "In Progress",
-      statusColor: "green",
-      name: "John Doe",
-      note: "Provider is on the way",
-      date: "Tue, 28 May",
-      time: "2:00 PM – 4:00 PM",
-    },
-    {
-      title: "Lawn Mowing",
-      provider: "GreenScape Experts",
-      status: "Confirmed",
-      statusColor: "blue",
-      name: "Jane Smith",
-      note: "Booking confirmed",
-      date: "Fri, 31 May",
-      time: "10:00 AM",
-    },
-  ];
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch("/api/bookings");
 
-  const bookingHistory = [
-    {
-      title: "Window Cleaning",
-      provider: "ShinyGlass Co.",
-      status: "Completed",
-      statusColor: "gray",
-      name: "Alex Johnson",
-      note: "Service completed successfully",
-      date: "Mon, 20 May",
-      time: "11:00 AM – 12:00 PM",
-    },
-    {
-      title: "Carpet Shampoo",
-      provider: "FreshFloors Ltd.",
-      status: "Cancelled",
-      statusColor: "red",
-      name: "Emily Davis",
-      note: "Booking cancelled by user",
-      date: "Sat, 18 May",
-      time: "3:00 PM – 5:00 PM",
-    },
-  ];
+        if (!res.ok) {
+          throw new Error("Failed to fetch bookings");
+        }
 
-  const renderCard = (booking) => (
+        const bookings = await res.json();
+        console.log("Fetched bookings:", bookings);
+
+        // Transform and separate bookings
+        const upcoming = [];
+        const history = [];
+
+        bookings.forEach((booking) => {
+          const statusInfo = getStatusInfo(booking.status);
+
+          const transformedBooking = {
+            id: booking._id,
+            title: booking.service?.name || "Service",
+            provider: booking.service?.businessName || booking.provider?.name || "Provider",
+            status: statusInfo.label,
+            statusColor: statusInfo.color,
+            name: booking.provider?.name || "Provider",
+            note: statusInfo.note,
+            date: formatDate(booking.startTime),
+            time: formatTimeRange(booking.startTime, booking.endTime),
+            rawStatus: booking.status,
+          };
+
+          // Separate upcoming from history
+          if (["pending", "accepted", "in-progress"].includes(booking.status)) {
+            upcoming.push(transformedBooking);
+          } else {
+            history.push(transformedBooking);
+          }
+        });
+
+        setUpcomingBookings(upcoming);
+        setBookingHistory(history);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching bookings:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBookings();
+  }, []);
+
+  const renderCard = (data) => (
     <div className="bg-white rounded-xl shadow-sm p-5 border flex flex-col">
       {/* Header */}
       <div className="flex justify-between items-start gap-4">
@@ -74,9 +116,8 @@ export default function DashboardUI({ user }) {
         </div>
 
         <span
-          className={`text-xs px-3 py-1 rounded-full whitespace-nowrap ${
-            statusStyles[booking.statusColor]
-          }`}
+          className={`text-xs px-3 py-1 rounded-full whitespace-nowrap ${statusStyles[booking.statusColor]
+            }`}
         >
           {booking.status}
         </span>
@@ -137,38 +178,81 @@ export default function DashboardUI({ user }) {
         Manage your bookings and profile.
       </p>
 
-      {/* Tabs */}
-      <div className="flex gap-4 sm:gap-6 border-b mb-6 overflow-x-auto">
-        {["upcoming", "history"].map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`pb-3 font-medium whitespace-nowrap ${
-              activeTab === tab
-                ? "text-blue-600 border-b-2 border-blue-600"
-                : "text-gray-500 hover:text-black"
-            }`}
-          >
-            {tab === "upcoming" ? "Upcoming Bookings" : "Booking History"}
-          </button>
-        ))}
-      </div>
+      {/* Loading State */}
+      {loading && (
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        </div>
+      )}
 
-      {/* Cards Grid */}
-      <div className="
-        grid 
-        grid-cols-1 
-        sm:grid-cols-2 
-        xl:grid-cols-3 
-        gap-6
-      ">
-        {(activeTab === "upcoming"
-          ? upcomingBookings
-          : bookingHistory
-        ).map((booking, i) => (
-          <div key={i}>{renderCard(booking)}</div>
-        ))}
-      </div>
+      {/* Error State */}
+      {error && !loading && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+          <p className="font-medium">Error loading bookings</p>
+          <p className="text-sm">{error}</p>
+        </div>
+      )}
+
+      {/* Content */}
+      {!loading && !error && (
+        <>
+          {/* Tabs */}
+          <div className="flex gap-4 sm:gap-6 border-b mb-6 overflow-x-auto">
+            {["upcoming", "history"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`pb-3 font-medium whitespace-nowrap ${activeTab === tab
+                    ? "text-blue-600 border-b-2 border-blue-600"
+                    : "text-gray-500 hover:text-black"
+                  }`}
+              >
+                {tab === "upcoming" ? "Upcoming Bookings" : "Booking History"}
+              </button>
+            ))}
+          </div>
+
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            {(activeTab === "upcoming"
+              ? upcomingBookings
+              : bookingHistory
+            ).map((booking, i) => (
+              <div key={booking.id || i}>{renderCard(booking)}</div>
+            ))}
+          </div>
+
+          {/* Empty State */}
+          {((activeTab === "upcoming" && upcomingBookings.length === 0) ||
+            (activeTab === "history" && bookingHistory.length === 0)) && (
+              <div className="text-center py-12">
+                <div className="text-gray-400 mb-4">
+                  <svg
+                    className="mx-auto h-16 w-16"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  No {activeTab === "upcoming" ? "upcoming" : "past"} bookings
+                </h3>
+                <p className="text-gray-500">
+                  {activeTab === "upcoming"
+                    ? "You don't have any upcoming bookings yet."
+                    : "You don't have any booking history yet."}
+                </p>
+              </div>
+            )}
+        </>
+      )}
     </div>
   );
 }

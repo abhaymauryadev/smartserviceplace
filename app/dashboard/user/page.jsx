@@ -1,6 +1,5 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import Header from "@/components/common/Header";
 import DashboardUI from "./UserDashboard/page";
 
 export default async function UserDashboard() {
@@ -8,9 +7,7 @@ export default async function UserDashboard() {
 
   return (
     <>
-      {/* <Header /> */}
       <DashboardUI user={session?.user} />
-
     </>
   );
 }

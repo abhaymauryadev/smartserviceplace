@@ -30,6 +30,11 @@ const UserSchema = new mongoose.Schema(
 
     phone: String,
 
+    bio: {
+      type: String,
+      default: "",
+    },
+
     isVerified: {
       type: Boolean,
       default: false,

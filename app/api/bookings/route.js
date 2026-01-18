@@ -6,7 +6,7 @@ import Booking from "@/models/Booking";
 
 export async function GET(req) {
   try {
-    const session = await getServerSession(req, authOptions);
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
@@ -22,43 +22,14 @@ export async function GET(req) {
 
     return NextResponse.json(bookings);
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching bookings:", error);
     return NextResponse.json({ message: "Server Error" }, { status: 500 });
   }
-
-  try {
-    const session = await getServerSession(req, authOptions);
-    if (!session) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    }
-
-    await connectDB();
-
-    // Count bookings by status for this user/provider
-    const [newRequests, upcoming, completed, cancelled] = await Promise.all([
-      Booking.countDocuments({ user: session.user.id, status: "new" }),
-      Booking.countDocuments({ user: session.user.id, status: "upcoming" }),
-      Booking.countDocuments({ user: session.user.id, status: "completed" }),
-      Booking.countDocuments({ user: session.user.id, status: "cancelled" }),
-    ]);
-
-    return NextResponse.json({
-      newRequests,
-      upcoming,
-      completed,
-      cancelled,
-    });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ message: "Server Error" }, { status: 500 });
-  }
-
-
 }
 
 export async function POST(req) {
   try {
-    const session = await getServerSession(req, authOptions);
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
@@ -73,11 +44,8 @@ export async function POST(req) {
 
     return NextResponse.json(booking, { status: 201 });
   } catch (error) {
-    console.error(error);
+    console.error("Error creating booking:", error);
     return NextResponse.json({ message: "Server Error" }, { status: 500 });
   }
 }
 
-// export async function GET(req) {
-  
-// }
