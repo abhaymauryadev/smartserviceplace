@@ -24,8 +24,13 @@ export async function GET() {
 export async function POST(req) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== "provider") {
-      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+
+    if (!session) {
+      return NextResponse.json({ message: "Unauthorized: Please login" }, { status: 401 });
+    }
+
+    if (session.user.role !== "provider") {
+      return NextResponse.json({ message: "Forbidden: Only providers can create services" }, { status: 403 });
     }
 
     const body = await req.json();

@@ -1,4 +1,5 @@
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import { connectDB } from "@/lib/db";
 import Service from "@/models/Service";
@@ -15,6 +16,10 @@ async function getServices(providerId) {
 
 export default async function ProviderServicesPage() {
   const session = await getServerSession(authOptions);
+
+  if (session?.user?.role !== "provider") {
+    redirect("/dashboard/user");
+  }
   // Serialize complex objects (like ObjectIDs, Dates) to plain JSON
   const services = JSON.parse(JSON.stringify(await getServices(session.user.id)));
 
@@ -26,7 +31,7 @@ export default async function ProviderServicesPage() {
 
       {services.length === 0 ? (
         <EmptyServices />
-      ) : ( 
+      ) : (
         <div className="
           grid 
           grid-cols-1 
@@ -39,7 +44,7 @@ export default async function ProviderServicesPage() {
             <ServiceCard key={service._id} images={service.images} service={service} />
           ))}
         </div>
-      )}  
-    </div>  
+      )}
+    </div>
   );
 }

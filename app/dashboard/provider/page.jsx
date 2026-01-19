@@ -1,4 +1,5 @@
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import StatsCards from "../../../components/dashboard/StatsCard";
 import EarningsChart from "@/components/dashboard/EarningsChart";
@@ -11,6 +12,10 @@ import User from "@/models/User";
 
 export default async function ProviderDashboard() {
   const session = await getServerSession(authOptions);
+
+  if (session?.user?.role !== "provider") {
+    redirect("/dashboard/user");
+  }
 
   await connectDB();
   const providerId = session?.user?.id;
