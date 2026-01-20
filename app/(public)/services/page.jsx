@@ -2,6 +2,7 @@ import Link from "next/link";
 import { connectDB } from "@/lib/db";
 import Service from "@/models/Service";
 import Image from "next/image";
+import ServiceSideBar from "@/components/common/ServiceSideBar";
 
 async function getServices() {
   try {
@@ -20,9 +21,12 @@ export default async function ServicesPage() {
   const services = await getServices();
 
   return (
-    <main className="max-w-6xl mx-auto px-4 py-10 text-black">
+    <>
+    <div className="flex">  
+    <ServiceSideBar />
+    <main className="max-w-6xl mx-10 px-4 py-10 bg-white text-black">
       <h1 className="text-3xl font-bold mb-6">
-        {/* <Image src="" alt="" width={500} height={500} /> */}
+       
         Available Services
       </h1>
 
@@ -40,7 +44,7 @@ export default async function ServicesPage() {
 
             return (
 
-
+            
               <div
                 key={service._id}
                 className="border rounded-xl overflow-hidden group hover:shadow-md transition bg-white"
@@ -88,5 +92,7 @@ export default async function ServicesPage() {
         </div>
       )}
     </main>
+    </div>
+    </>
   );
 }
