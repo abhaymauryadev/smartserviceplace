@@ -22,7 +22,7 @@ export default async function ServicesPage() {
   return (
     <main className="max-w-6xl mx-auto px-4 py-10 text-black">
       <h1 className="text-3xl font-bold mb-6">
-      {/* <Image src="" alt="" width={500} height={500} /> */}
+        {/* <Image src="" alt="" width={500} height={500} /> */}
         Available Services
       </h1>
 
@@ -34,36 +34,54 @@ export default async function ServicesPage() {
         <div className="grid md:grid-cols-3 gap-6">
           {services.map((service) => {
             const description = service.description || "";
-            const truncatedDescription = description.length > 80 
-              ? `${description.slice(0, 80)}...` 
+            const truncatedDescription = description.length > 80
+              ? `${description.slice(0, 80)}...`
               : description;
 
             return (
 
-            
+
               <div
-
                 key={service._id}
-                className="border rounded p-4"
+                className="border rounded-xl overflow-hidden group hover:shadow-md transition bg-white"
               >
-                <h2 className="font-semibold text-lg">
-                  {service.title}
-                </h2>
+                <div className="relative h-48 w-full bg-gray-100">
+                  {service.images && service.images.length > 0 ? (
+                    <Image
+                      src={service.images[0]} 
+                      alt={service.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition duration-300"
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center h-full text-gray-400">
+                      No Image
+                    </div>
+                  )}
+                </div>
 
-                <p className="text-sm text-gray-600 mt-1">
-                  {truncatedDescription}
-                </p>
+                <div className="p-4">
+                  <h2 className="font-semibold text-lg line-clamp-1">
+                    {service.title}
+                  </h2>
 
-                <p className="mt-2 font-medium">
-                  ₹{service.price}
-                </p>
+                  <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+                    {truncatedDescription}
+                  </p>
 
-                <Link
-                  href={`/services/${service._id}`}
-                  className="inline-block mt-3 text-sm underline"
-                >
-                  View Details
-                </Link>
+                  <div className="mt-4 flex items-center justify-between">
+                    <p className="font-bold text-lg text-blue-600">
+                      ₹{service.price}
+                    </p>
+
+                    <Link
+                      href={`/services/${service._id}`}
+                      className="text-sm font-medium text-gray-900 hover:text-blue-600 transition"
+                    >
+                      View Details →
+                    </Link>
+                  </div>
+                </div>
               </div>
             );
           })}

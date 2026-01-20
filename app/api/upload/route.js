@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
+import cloudinary from "@/lib/cloudinary";
 
 export async function POST(req) {
     try {
@@ -14,21 +13,21 @@ export async function POST(req) {
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        // Create unique filename
-        const filename = `${Date.now()}-${file.name.replace(/\s/g, "-")}`;
+        // Upload to Cloudinary using a promise to handle the stream
+        const result = await new Promise((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream(
+                {
+                    folder: "smartserviceplace", // Optional: organize files in a folder
+                },
+                (error, result) => {
+                    if (error) reject(error);
+                    else resolve(result);
+                }
+            );
+            uploadStream.end(buffer);
+        });
 
-        // Ensure upload directory exists
-        const uploadDir = path.join(process.cwd(), "public/uploads");
-        await mkdir(uploadDir, { recursive: true });
-
-        // Save file
-        const filepath = path.join(uploadDir, filename);
-        await writeFile(filepath, buffer);
-
-        // Return the URL
-        const imageUrl = `/uploads/${filename}`;
-
-        return NextResponse.json({ url: imageUrl }, { status: 201 });
+        return NextResponse.json({ url: result.secure_url }, { status: 201 });
     } catch (error) {
         console.error("Upload Error:", error);
         return NextResponse.json({ message: "Upload failed" }, { status: 500 });

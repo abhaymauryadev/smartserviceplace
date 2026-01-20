@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { connectDB } from "@/lib/db";
 import Service from "@/models/Service";
+import Image from "next/image";
 
 async function getService(id) {
   try {
@@ -16,33 +17,91 @@ async function getService(id) {
 }
 
 export default async function ServiceDetailsPage({ params }) {
-  const service = await getService(params.id);
+  const { id } = await params;
+  const service = await getService(id);
 
   if (!service) {
     notFound();
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-3">
-        {service.title}
-      </h1>
+    <main className="max-w-4xl mx-auto px-4 py-10 text-black">
+      <div className="grid md:grid-cols-2 gap-10">
+        {/* Images Section */}
+        <div className="space-y-4">
+          <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-gray-100 shadow-sm">
+            {service.images && service.images.length > 0 ? (
+              <Image
+                src={service.images[0]}
+                alt={service.title}
+                fill
+                className="object-cover"
+                priority
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full text-gray-400">
+                No Image Available
+              </div>
+            )}
+          </div>
 
-      <p className="text-gray-600 mb-4">
-        {service.description}
-      </p>
+          {service.images && service.images.length > 1 && (
+            <div className="grid grid-cols-4 gap-4">
+              {service.images.slice(1).map((img, idx) => (
+                <div key={idx} className="relative aspect-square rounded-lg overflow-hidden bg-gray-100 border">
+                  <Image
+                    src={img}
+                    alt={`${service.title} - ${idx + 2}`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
-      <p className="font-semibold mb-2">
-        Price: ₹{service.price}
-      </p>
+        {/* Info Section */}
+        <div>
+          <h1 className="text-3xl font-bold mb-2">
+            {service.title}
+          </h1>
 
-      <p className="text-sm text-gray-500">
-        Provider: {service.provider?.name}
-      </p>
+          <div className="flex items-center gap-2 mb-6 text-sm text-gray-500">
+            <span className="bg-blue-50 text-blue-600 px-2 py-1 rounded">
+              {service.category}
+            </span>
+            <span>•</span>
+            <span>Provider: {service.provider?.name}</span>
+          </div>
 
-      <button className="mt-6 px-6 py-3 bg-black text-white rounded">
-        Book Service
-      </button>
+          <p className="text-gray-600 mb-8 leading-relaxed">
+            {service.description}
+          </p>
+
+          <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+            <div className="flex items-end justify-between mb-6">
+              <div>
+                <p className="text-sm text-gray-500 mb-1">Price</p>
+                <p className="text-3xl font-bold">
+                  ₹{service.price}
+                  <span className="text-base font-normal text-gray-500 ml-1">
+                    /{service.pricingModel === "hourly" ? "hour" : "flat rate"}
+                  </span>
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-500 mb-1">Duration</p>
+                <p className="font-semibold">{service.duration} mins</p>
+              </div>
+            </div>
+
+            <button className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition shadow-lg shadow-blue-200">
+              Book This Service
+            </button>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
