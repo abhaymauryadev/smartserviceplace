@@ -2,11 +2,26 @@ import { connectDB } from "@/lib/db";
 import Service from "@/models/Service";
 import ServicesListContent from "@/components/Service/ServicesListContent";
 
-async function getServices() {
+async function getServices(searchParams) {
   try {
     await connectDB();
-    // Fetch only active services and convert MongoDB documents to plain objects
-    const servicesData = await Service.find({ isActive: true })
+
+    const { category, maxPrice } = searchParams || {};
+    let query = { isActive: true };
+
+    if (category) {
+      const categories = category.split(',');
+      if (!categories.includes('All')) {
+        query.category = { $in: categories };
+      }
+    }
+
+    if (maxPrice) {
+      query.price = { $lte: Number(maxPrice) };
+    }
+
+    // Fetch filtered services and convert MongoDB documents to plain objects
+    const servicesData = await Service.find(query)
       .populate("provider", "name")
       .lean();
 
@@ -19,8 +34,9 @@ async function getServices() {
   }
 }
 
-export default async function ServicesPage() {
-  const services = await getServices();
+export default async function ServicesPage({ searchParams }) {
+  const params = await searchParams;
+  const services = await getServices(params);
 
   return <ServicesListContent services={services} />;
 }

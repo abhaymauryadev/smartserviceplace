@@ -1,48 +1,100 @@
-"use client"
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 
 export default function ServiceSideBar({ isOpen, onClose }) {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+
   const categories = [
     'All',
     'Cleaning',
-    'Repair',
-    'Painting',
     'Plumbing',
     'Electrical',
+    'Painting',
     'Carpentry',
     'Gardening',
-    'Pest Control',
-    'Moving',
+    'Beauty',
     'Other',
   ]
 
+  // Initialize state from URL
   const [selectedCategories, setSelectedCategories] = useState(['All'])
+  const [maxPrice, setMaxPrice] = useState(1000)
+
+  useEffect(() => {
+    const categoryParam = searchParams.get('category')
+    const priceParam = searchParams.get('maxPrice')
+
+    if (categoryParam) {
+      setSelectedCategories(categoryParam.split(','))
+    } else {
+      setSelectedCategories(['All'])
+    }
+
+    if (priceParam) {
+      setMaxPrice(Number(priceParam))
+    }
+  }, [searchParams])
+
+  // Update URL function
+  const updateURL = useCallback((newCategories, newPrice) => {
+    const params = new URLSearchParams(searchParams.toString())
+
+    if (newCategories.length > 0 && !newCategories.includes('All')) {
+      params.set('category', newCategories.join(','))
+    } else {
+      params.delete('category')
+    }
+
+    if (newPrice < 1000) {
+      params.set('maxPrice', newPrice.toString())
+    } else {
+      params.delete('maxPrice')
+    }
+
+    router.push(`${pathname}?${params.toString()}`, { scroll: false })
+  }, [pathname, router, searchParams])
 
   const handleCategoryChange = (category) => {
+    let updated
     if (category === 'All') {
-      // Reset to only "All"
-      setSelectedCategories(['All'])
+      updated = ['All']
     } else {
-      // Remove "All" if another category is selected
-      let updated = selectedCategories.filter((c) => c !== 'All')
-
+      updated = selectedCategories.filter((c) => c !== 'All')
       if (updated.includes(category)) {
         updated = updated.filter((c) => c !== category)
       } else {
         updated.push(category)
       }
-
-      // If none selected, default back to "All"
       if (updated.length === 0) {
         updated = ['All']
       }
-
-      setSelectedCategories(updated)
     }
+    setSelectedCategories(updated)
+    updateURL(updated, maxPrice)
   }
+
+  const handlePriceChange = (e) => {
+    const value = Number(e.target.value)
+    setMaxPrice(value)
+  }
+
+  // Debounce price change
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (maxPrice !== Number(searchParams.get('maxPrice') || 1000)) {
+        updateURL(selectedCategories, maxPrice)
+      }
+    }, 500)
+
+    return () => clearTimeout(timer)
+  }, [maxPrice, selectedCategories, updateURL, searchParams])
 
   const resetFilters = () => {
     setSelectedCategories(['All'])
+    setMaxPrice(1000)
+    router.push(pathname, { scroll: false })
   }
 
   return (
@@ -122,11 +174,14 @@ export default function ServiceSideBar({ isOpen, onClose }) {
             type="range"
             min="0"
             max="1000"
+            step="50"
+            value={maxPrice}
+            onChange={handlePriceChange}
             className="w-full accent-blue-600"
           />
           <div className="flex justify-between text-sm text-gray-500 mt-1">
-            <span>$0</span>
-            <span>$1000</span>
+            <span>₹0</span>
+            <span>₹{maxPrice}+</span>
           </div>
         </div>
       </aside>
