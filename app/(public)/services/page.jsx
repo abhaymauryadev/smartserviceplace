@@ -1,15 +1,17 @@
-import Link from "next/link";
 import { connectDB } from "@/lib/db";
 import Service from "@/models/Service";
-import Image from "next/image";
-import ServiceSideBar from "@/components/common/ServiceSideBar";
+import ServicesListContent from "@/components/Service/ServicesListContent";
 
 async function getServices() {
   try {
     await connectDB();
-    const services = await Service.find({ isActive: true })
+    // Fetch only active services and convert MongoDB documents to plain objects
+    const servicesData = await Service.find({ isActive: true })
       .populate("provider", "name")
-      .lean()
+      .lean();
+
+    // Ensure _id and other MongoDB specific types are converted to strings/plain formats
+    const services = JSON.parse(JSON.stringify(servicesData));
     return services || [];
   } catch (error) {
     console.error("Error fetching services:", error);
@@ -20,79 +22,5 @@ async function getServices() {
 export default async function ServicesPage() {
   const services = await getServices();
 
-  return (
-    <>
-    <div className="flex">  
-    <ServiceSideBar />
-    <main className="max-w-6xl mx-10 px-4 py-10 bg-white text-black">
-      <h1 className="text-3xl font-bold mb-6">
-       
-        Available Services
-      </h1>
-
-      {services.length === 0 && (
-        <p className="text-gray-500">No services found.</p>
-      )}
-
-      {services.length > 0 && (
-        <div className="grid md:grid-cols-3 gap-6">
-          {services.map((service) => {
-            const description = service.description || "";
-            const truncatedDescription = description.length > 80
-              ? `${description.slice(0, 80)}...`
-              : description;
-
-            return (
-
-            
-              <div
-                key={service._id}
-                className="border rounded-xl overflow-hidden group hover:shadow-md transition bg-white"
-              >
-                <div className="relative h-48 w-full bg-gray-100">
-                  {service.images && service.images.length > 0 ? (
-                    <Image
-                      src={service.images[0]} 
-                      alt={service.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition duration-300"
-                    />
-                  ) : (
-                    <div className="flex items-center justify-center h-full text-gray-400">
-                      No Image
-                    </div>
-                  )}
-                </div>
-
-                <div className="p-4">
-                  <h2 className="font-semibold text-lg line-clamp-1">
-                    {service.title}
-                  </h2>
-
-                  <p className="text-sm text-gray-600 mt-1 line-clamp-2">
-                    {truncatedDescription}
-                  </p>
-
-                  <div className="mt-4 flex items-center justify-between">
-                    <p className="font-bold text-lg text-blue-600">
-                      ₹{service.price}
-                    </p>
-
-                    <Link
-                      href={`/services/${service._id}`}
-                      className="text-sm font-medium text-gray-900 hover:text-blue-600 transition"
-                    >
-                      View Details →
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </main>
-    </div>
-    </>
-  );
+  return <ServicesListContent services={services} />;
 }
