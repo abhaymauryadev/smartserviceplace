@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { connectDB } from "@/lib/db";
 import Service from "@/models/Service";
 import Image from "next/image";
+import PayButton from "@/components/common/PayButton";
 
 async function getService(id) {
   try {
@@ -37,6 +38,7 @@ export default async function ServiceDetailsPage({ params }) {
                 fill
                 className="object-cover"
                 priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             ) : (
               <div className="flex items-center justify-center h-full text-gray-400">
@@ -96,9 +98,11 @@ export default async function ServiceDetailsPage({ params }) {
               </div>
             </div>
 
-            <button className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition shadow-lg shadow-blue-200">
-              Book This Service
-            </button>
+            <PayButton
+              amount={service.price}
+              title={service.title}
+              description={service.description}
+            />
           </div>
         </div>
       </div>
