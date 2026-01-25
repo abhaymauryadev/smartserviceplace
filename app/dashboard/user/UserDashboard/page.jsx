@@ -102,7 +102,7 @@ export default function DashboardUI({ user }) {
     fetchBookings();
   }, []);
 
-  const renderCard = (data) => (
+  const renderCard = (booking) => (
     <div className="bg-white rounded-xl shadow-sm p-5 border flex flex-col">
       {/* Header */}
       <div className="flex justify-between items-start gap-4">
@@ -203,8 +203,8 @@ export default function DashboardUI({ user }) {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`pb-3 font-medium whitespace-nowrap ${activeTab === tab
-                    ? "text-blue-600 border-b-2 border-blue-600"
-                    : "text-gray-500 hover:text-black"
+                  ? "text-blue-600 border-b-2 border-blue-600"
+                  : "text-gray-500 hover:text-black"
                   }`}
               >
                 {tab === "upcoming" ? "Upcoming Bookings" : "Booking History"}

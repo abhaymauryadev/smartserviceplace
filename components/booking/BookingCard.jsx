@@ -28,20 +28,31 @@ export default function BookingCard({ booking, onAccept, onReject }) {
         </div>
 
         {/* Right side: action buttons */}
-        <div className="flex gap-2">
-          <button
-            onClick={() => onReject?.(booking)}
-            className="bg-red-100 text-red-600 px-3 py-1.5 rounded-md text-sm hover:bg-red-200"
-          >
-            Reject
-          </button>
-          <button
-            onClick={() => onAccept?.(booking)}
-            className="bg-green-100 text-green-700 px-3 py-1.5 rounded-md text-sm hover:bg-green-200"
-          >
-            Accept
-          </button>
-        </div>
+        {booking.status === "pending" && (
+          <div className="flex gap-2">
+            <button
+              onClick={() => onReject?.(booking)}
+              className="bg-red-100 text-red-600 px-3 py-1.5 rounded-md text-sm hover:bg-red-200"
+            >
+              Reject
+            </button>
+            <button
+              onClick={() => onAccept?.(booking)}
+              className="bg-green-100 text-green-700 px-3 py-1.5 rounded-md text-sm hover:bg-green-200"
+            >
+              Accept
+            </button>
+          </div>
+        )}
+
+        {booking.status !== "pending" && (
+          <div className={`px-3 py-1.5 rounded-md text-sm font-medium ${booking.status === "accepted" ? "bg-green-100 text-green-700" :
+              booking.status === "rejected" ? "bg-red-100 text-red-600" :
+                "bg-gray-100 text-gray-600"
+            }`}>
+            {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+          </div>
+        )}
       </div>
 
       {/* Notes section */}
