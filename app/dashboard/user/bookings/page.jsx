@@ -39,7 +39,7 @@ async function getBookings(userId) {
     return [];
   }
 }
-
+// check the bookings service page while confirming the booking is not showing 
 async function getServices() {
   try {
     await connectDB();

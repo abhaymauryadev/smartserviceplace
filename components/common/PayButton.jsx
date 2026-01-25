@@ -1,5 +1,5 @@
 "use client";
-
+// add the payment btn in user sides
 export default function PayButton({ amount, title, description }) {
     const loadRazorpay = () => {
         return new Promise((resolve) => {
