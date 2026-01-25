@@ -12,7 +12,7 @@ import BookingTabs from "@/components/booking/BookingTabs";
 import BookingCard from "@/components/booking/BookingCard";
 import EmptyBookings from "@/components/booking/EmptyBookings";
 
-import ProviderBookingsList from "@/components/booking/ProviderBookingsList";
+import ProviderBookingsMain from "@/components/booking/ProviderBookingsMain";
 
 async function getBookings(providerId) {
   await connectDB();
@@ -36,13 +36,8 @@ export default async function ProviderBookingsPage() {
 
       <BookingFilters />
 
-      <BookingTabs />
 
-      {bookings.length === 0 ? (
-        <EmptyBookings />
-      ) : (
-        <ProviderBookingsList initialBookings={bookingsJson} />
-      )}
+      <ProviderBookingsMain initialBookings={bookingsJson} />
     </div>
   );
 }
