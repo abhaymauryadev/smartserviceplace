@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Smart Service Place
+
+Smart Service Place is a modern web application designed to connect users with service providers. It offers a seamless platform for booking services, managing appointments, and processing payments.
+
+## Features
+
+-   **User Authentication**: Secure login and registration using NextAuth (Credentials, Google, Apple).
+-   **Service Booking**: Users can browse and book various services.
+-   **Provider Dashboard**: Service providers can manage their bookings, verify services, and track earnings.
+-   **User Dashboard**: specific dashboard for users to manage their bookings and profile.
+-   **Payments**: Integrated with Razorpay for secure and easy payments.
+-   **Real-time Notifications**: Socket.io integration for instant updates on bookings and status changes.
+-   **Reviews & Ratings**: System for users to rate and review services.
+
+## Tech Stack
+
+-   **Framework**: [Next.js 16](https://nextjs.org/) (App Directory)
+-   **Frontend**: React 19, Tailwind CSS
+-   **Backend**: Next.js API Routes
+-   **Database**: MongoDB (with Mongoose)
+-   **Authentication**: NextAuth.js
+-   **Payments**: Razorpay
+-   **Real-time Communication**: Socket.io
+-   **Icons**: Lucide React, React Icons
+-   **Calendar**: FullCalendar
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Ensure you have the following installed:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   Node.js (v18 or later)
+-   MongoDB
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  **Clone the repository:**
 
-## Learn More
+    ```bash
+    git clone https://github.com/abhaymauryadev/smartserviceplace.git
+    cd smartserviceplace
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2.  **Install dependencies:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    npm install
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3.  **Environment Variables:**
 
-## Deploy on Vercel
+    Copy the `.env.example` file to `.env` and fill in the values:
+    
+    ```bash
+    cp .env.example .env
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    Open the `.env` file and add your credentials:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    ```env
+    # Database
+    MONGODB_URI=your_mongodb_connection_string
+
+    # NextAuth
+    NEXTAUTH_SECRET=your_nextauth_secret
+    NEXTAUTH_URL=http://localhost:3000
+
+    # OAuth Providers (Optional)
+    GOOGLE_CLIENT_ID=your_google_client_id
+    GOOGLE_CLIENT_SECRET=your_google_client_secret
+    APPLE_ID=your_apple_id
+    APPLE_SECRET=your_apple_secret
+
+    # Razorpay (Payments)
+    RAZORPAY_KEY_ID=your_razorpay_key_id
+    RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+
+    # Cloudinary (Image Uploads)
+    CLOUDINARY_CLOUD_NAME=your_cloud_name
+    CLOUDINARY_API_KEY=your_api_key
+    CLOUDINARY_API_SECRET=your_api_secret
+    ```
+
+4.  **Run the development server:**
+
+    ```bash
+    npm run dev
+    ```
+
+    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Project Structure
+
+-   `app/`: App Router pages and API routes.
+-   `components/`: Reusable React components.
+-   `lib/`: Utility functions (DB connection, Auth, Cloudinary).
+-   `models/`: Mongoose schemas (User, Service, Booking, etc.).
+-   `public/`: Static assets.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements.
