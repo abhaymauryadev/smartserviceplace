@@ -5,14 +5,14 @@ import { MdPlumbing } from "react-icons/md"
 export default function HowItWorks() {
     return (
         <div>
-            <div className="  text-black bg-gray-200 mt-12 ">
+            <div className="text-black bg-gray-200 mt-12  h-[30rem]">
                 <h1 className="text-4xl text-center font-bold pt-16 pb-3 text-black">
                     How It Works
                 </h1>
 
-                <p className="text-center text-gray-600 pb-10 ">Booking a service is simple and seamless. In just a few steps, you’ll be connected with the right professional for your needs.</p>
+                <p className="text-center text-gray-600 pb-10 ">Booking a s ervice is simple and seamless. In just a few steps, you’ll be connected with the right professional for your needs.</p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  mb-5 gap-5  mx-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  mb-5 gap-5 pt-10  mx-auto">
                     {[
                         {
                             icon: <Search  size={40} color="blue" />,
