@@ -5,7 +5,7 @@ import { MdPlumbing } from "react-icons/md"
 export default function PopularServices() {
   return (
     <div className="h-full  ">
-      <div>
+      <div> 
         <h1 className="text-4xl text-center font-bold pt-16 pb-16 text-black">
           Popular Services
         </h1>
@@ -34,7 +34,7 @@ export default function PopularServices() {
           ].map((service, idx) => (
             <div
               key={idx}
-              className=" w-72 bg-gray-200  h-60 flex flex-col justify-center items-center rounded-lg shadow-sm text-center space-y-2"
+              className=" w-72 bg-gray-200 text-black  h-60 flex flex-col justify-center items-center rounded-lg shadow-sm text-center space-y-2"
             >
               {service.icon}
               <h1 className="text-lg font-semibold">{service.title}</h1>
