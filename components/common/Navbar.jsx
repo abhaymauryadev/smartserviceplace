@@ -29,8 +29,8 @@ export default function Navbar() {
 
       <div className="flex gap-8 items-center text-black justify-center">
         <Link href="/services">Services</Link>
-        <Link href="/services">How It Works</Link>
-        <Link href="/services">For Providers</Link>
+        <Link href="/how-it-works">How It Works</Link>
+        <Link href="/for-providers">For Providers</Link>
 
         {/* {session ? (
           <>

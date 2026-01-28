@@ -5,7 +5,7 @@ import { MdPlumbing } from "react-icons/md"
 export default function HowItWorks() {
     return (
         <div>
-            <div className="text-black bg-gray-200 mt-12  h-[30rem]">
+            <div className="text-black bg-gray-200 mt-12  h-120">
                 <h1 className="text-4xl text-center font-bold pt-16 pb-3 text-black">
                     How It Works
                 </h1>
