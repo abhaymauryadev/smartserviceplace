@@ -37,7 +37,7 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="py-32 bg-white overflow-hidden text-black">
+    <section className="py-32  bg-overflow-hidden text-black bg-gray-200">
       <h2 className="text-4xl font-bold text-center mb-20">
         Testimonials
       </h2>
@@ -71,7 +71,7 @@ export default function Testimonials() {
 
 function Card({ text, name, role }) {
   return (
-    <div className="min-w-[320px] rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+    <div className="min-w-[320px] rounded-xl border border-gray-200 bg-gray-100 p-6 shadow-sm">
       <p className="text-gray-700 mb-6 text-[15px] leading-relaxed">
         “{text}”
       </p>
