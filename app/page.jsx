@@ -5,6 +5,7 @@ import Navbar from "@/components/common/Navbar";
 import Hero from "@/sections/Hero";
 import HowItWorks from "@/sections/HowItWorks";
 import PopularServices from "@/sections/PopularServices";
+import Testimonials from "@/sections/Testimonials";
 import Platform from "@/sections/Platform";
 // import Snowfall from "react-snowfall";
 
@@ -21,6 +22,7 @@ export default function HomePage() {
       <PopularServices/>
       <HowItWorks />
       <Platform/>
+      <Testimonials/>
       {/* <Footer/> */}
     </main>
   );
