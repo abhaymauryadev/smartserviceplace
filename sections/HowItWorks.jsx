@@ -1,5 +1,5 @@
 import React from 'react'
-import { Search, Users,CreditCard} from "lucide-react";
+import { Search, Users, CreditCard } from "lucide-react";
 import { MdPlumbing } from "react-icons/md"
 
 export default function HowItWorks() {
@@ -10,12 +10,12 @@ export default function HowItWorks() {
                     How It Works
                 </h1>
 
-                <p className="text-center text-gray-600 pb-10 ">Booking a s ervice is simple and seamless. In just a few steps, you’ll be connected with the right professional for your needs.</p>
+                <p className="text-center text-gray-600 pb-10 ">Booking a service is simple and seamless. In just a few steps, you’ll be connected with the right professional for your needs.</p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  mb-5 gap-5 pt-10  mx-auto">
                     {[
                         {
-                            icon: <Search  size={40} color="blue" />,
+                            icon: <Search size={40} color="blue" />,
                             title: "Search for a Service",
                             desc: "Share what you’re looking for and where you need it.",
                         },
@@ -32,10 +32,10 @@ export default function HowItWorks() {
                     ].map((service, idx) => (
                         <div
                             key={idx}
-                            className=" w-72 bg-gray-200 text-black   h-60 flex flex-col justify-center items-center rounded-lg  borer-none text-center space-y-2 max-w-8xl mx-auto"
+                            className=" w-72 bg-gray-200 text-black   h-60 flex flex-col justify-center items-center rounded-lg  border-none text-center space-y-2 max-w-8xl mx-auto"
                         >
                             <div className='bg-blue-100 p-4 rounded-full'>
-                            {service.icon}
+                                {service.icon}
                             </div>
                             <h1 className="text-lg font-semibold">{service.title}</h1>
                             <p className="text-sm text-gray-600">{service.desc}</p>
