@@ -1,8 +1,10 @@
-
-import React from 'react';
+"use client";
+import React, { useState, useRef, useEffect } from "react";
 import Navbar from '@/components/common/Navbar';
 import Footer from '@/sections/Footer';
 import Link from 'next/link';
+import Image from 'next/image';
+import gsap from "gsap";
 import { Search, CalendarCheck, MessageCircle, CreditCard } from "lucide-react";
 
 // 1. Extract Card Component
@@ -49,11 +51,55 @@ function TimelineItem({ align, icon, title, description }) {
     );
 }
 
+const faqs = [
+    {
+        q: "What is this product used for?",
+        a: "It helps teams streamline workflows, improve usability, and ship faster with confidence.",
+    },
+    {
+        q: "Is this suitable for small teams?",
+        a: "Yes. It works equally well for solo founders, startups, and large organizations.",
+    },
+    {
+        q: "Does it support modern frameworks?",
+        a: "Absolutely. It is designed to integrate seamlessly with modern frontend stacks.",
+    },
+    {
+        q: "Is customer support available?",
+        a: "Yes, we provide fast and reliable support to help you succeed.",
+    },
+];
 // 3. Main Page Component
 export default function HowItWorksPage() {
+
+
+    const [activeIndex, setActiveIndex] = useState(null);
+    const contentRefs = useRef([]);
+
+    useEffect(() => {
+        contentRefs.current.forEach((el, i) => {
+            if (!el) return;
+
+            if (i === activeIndex) {
+                gsap.to(el, {
+                    height: "auto",
+                    opacity: 1,
+                    duration: 0.4,
+                    ease: "power2.out",
+                });
+            } else {
+                gsap.to(el, {
+                    height: 0,
+                    opacity: 0,
+                    duration: 0.3,
+                    ease: "power2.inOut",
+                });
+            }
+        });
+    }, [activeIndex]);
     return (
         <main className="bg-gray-50 min-h-screen">
-            <Navbar />
+            {/* <Navbar /> */}
 
             {/* Hero Section */}
             <section className="bg-gray-100 text-black py-20">
@@ -137,6 +183,87 @@ export default function HowItWorksPage() {
                 </div>
             </section>
 
+
+            <div className='h-screen mt-12 text-black'>
+                <div className='h-160 bg-white flex justify-center items-center'>
+                    <div className=' space-y-8 m-14'>
+                        <h1 className='text-4xl font-bold'>Your Peace of Mind  is our Priority</h1>
+                        <div>
+                            <h2 className='text-2xl'>Certified Professionals</h2>
+                            <p className='text-lg text-gray-600'> Each provider is thoroughly vetted, background‑checked, and verified to ensure consistent quality.</p>
+                        </div>
+                        <div>
+                            <h2 className='text-2xl'>Effortless Scheduling</h2>
+                            <p className='text-lg text-gray-600'>Book services instantly with clear availability and upfront pricing—no surprises, just convenience.</p>
+                        </div>
+                        <div>
+                            <h2 className='text-2xl'>Trusted Transactions</h2>
+                            <p className='text-lg text-gray-600'>Complete payments safely through our platform, released only once your service is delivered. </p>
+                        </div>
+                    </div>
+                    <div>
+                        <Image src="/assets/hero-image.png" alt="Hero illustration" width={500} height={500} priority className="object-contain rounded-3xl" />
+                    </div>
+                </div>
+            </div>
+
+            <section className="py-32 bg-gray-100 text-black">
+                <h2 className="text-4xl font-bold text-center mb-20">
+                    Frequently Asked Questions
+                </h2>
+
+                <div className="max-w-3xl mx-auto space-y-4 px-4">
+                    {faqs.map((faq, i) => (
+                        <div
+                            key={i}
+                            className="border border-gray-200 rounded-xl bg-white shadow-sm"
+                        >
+                            <button
+                                onClick={() =>
+                                    setActiveIndex(activeIndex === i ? null : i)
+                                }
+                                className="w-full flex justify-between items-center p-6 text-left"
+                            >
+                                <span className="font-medium text-gray-900">
+                                    {faq.q}
+                                </span>
+                                <span className="text-xl">
+                                    {activeIndex === i ? "−" : "+"}
+                                </span>
+                            </button>
+
+                            <div
+                                ref={(el) => (contentRefs.current[i] = el)}
+                                className="overflow-hidden h-0 opacity-0"
+                            >
+                                <p className="px-6 pb-6 text-gray-600 leading-relaxed">
+                                    {faq.a}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <section className="py-16 bg-white text-black ">
+                <div className="max-w-6xl mx-auto px-6">
+                    <h2 className="text-4xl font-bold text-center mb-10">
+                        Ready to Get Started?
+                    </h2>
+                    <p className="text-lg text-gray-600 text-center mb-10">
+                        Join thousands of satisfied customers who rely on <br /> Smart Service Place for all their home service needs.
+                    </p>
+                    <div className="flex justify-center  gap-6">
+                        <button className="bg-blue-600 text-white px-6 py-3 rounded-sm cursor-pointer hover:bg-blue-600 transition">    
+                            Need a Service?
+                        </button>
+
+                        <button className="bg-gray-100 text-black px-6 py-3 rounded-sm cursor-pointer hover:bg-gray-200 transition">
+                            Become a Provider
+                        </button>
+                    </div>
+                </div>
+            </section>
             <Footer />
         </main>
     );
