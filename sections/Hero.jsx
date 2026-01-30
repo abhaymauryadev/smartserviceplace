@@ -4,46 +4,51 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex items-center bg-gray-100 justify-between px-8 ">
-      {/* Left side: text + buttons */}
-      <div className="max-w-7xl  flex flex-col justify-center items-center ">
-        <h1 className="text-7xl font-bold mb-4 text-black">
-          Find & Book Trusted <br />
-          Local Services, <br />
-          Instantly.
-        </h1>
+    <section className="min-h-screen bg-gray-100 px-6">
+      <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-16 py-20">
 
-        <p className="text-gray-600 mb-6 w-full ">
-          From home cleaning to handyman tasks, connect with verified <br /> professional in your area.
-        </p>
+        {/* Left: Text */}
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left max-w-xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-black mb-6 leading-tight">
+            Find & Book Trusted <br />
+            Local Services, <br />
+            Instantly.
+          </h1>
 
-        <div className="flex justify-center items-center gap-20 w-full">
-          <Link
-            href="/services"
-            className="px-23 py-3 bg-blue-500 text-white rounded"
-          >
-            Browse Services
-          </Link>
+          <p className="text-gray-600 mb-8 text-base sm:text-lg">
+            From home cleaning to handyman tasks, connect with verified
+            professionals in your area.
+          </p>
 
-          <Link
-            href="/register"
-            className="px-23 py-3 border text-black hover:bg-gray-200 rounded"
-          >
-            Become a Provider
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <Link
+              href="/services"
+              className="px-6 py-3 bg-blue-500 text-white rounded text-center hover:bg-blue-600 transition"
+            >
+              Browse Services
+            </Link>
+
+            <Link
+              href="/register"
+              className="px-6 py-3 border border-gray-300 text-black rounded text-center hover:bg-gray-200 transition"
+            >
+              Become a Provider
+            </Link>
+          </div>
         </div>
-      </div>
 
-      {/* Right side: image */}
-      <div className="relative w-1/2 flex justify-center  ">
-        <Image
-          src="/assets/hero-image.png"
-          alt="Hero illustration"
-          width={500}
-          height={500}
-          priority
-          className="object-contain rounded-3xl"
-        />
+        {/* Right: Image */}
+        <div className="w-full lg:w-1/2 flex justify-center">
+          <Image
+            src="/assets/hero-image.png"
+            alt="Hero illustration"
+            width={500}
+            height={500}
+            priority
+            className="rounded-3xl object-contain"
+          />
+        </div>
+
       </div>
     </section>
   );

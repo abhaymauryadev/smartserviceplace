@@ -1,28 +1,61 @@
-import React from 'react'
-import Image from 'next/image'
+import React from "react";
+import Image from "next/image";
+
 export default function Platform() {
   return (
-    <div className='h-screen mt-12 text-black'>
-      <div className='h-160 bg-white flex justify-center items-center'>
-        <div>
-          <Image src="/assets/hero-image.png" alt="Hero illustration" width={500} height={500} priority className="object-contain rounded-3xl" />
+    <section className="bg-white py-20 px-6">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 text-black">
+
+        {/* Image */}
+        <div className="w-full lg:w-1/2 flex justify-center">
+          <Image
+            src="/assets/hero-image.png"
+            alt="Platform illustration"
+            width={500}
+            height={500}
+            priority
+            className="rounded-3xl object-contain"
+          />
         </div>
-        <div className=' space-y-8 m-14'>
-          <h1 className='text-4xl font-bold'>Your Peace of Mind  is our Priority</h1>
+
+        {/* Content */}
+        <div className="w-full lg:w-1/2 space-y-8">
+          <h1 className="text-3xl md:text-4xl font-bold">
+            Your Peace of Mind is Our Priority
+          </h1>
+
           <div>
-            <h2 className='text-2xl'>Certified Professionals</h2>
-            <p className='text-lg text-gray-600'> Each provider is thoroughly vetted, background‑checked, and verified to ensure consistent quality.</p>
+            <h2 className="text-xl md:text-2xl font-semibold mb-2">
+              Certified Professionals
+            </h2>
+            <p className="text-gray-600 text-base md:text-lg">
+              Each provider is thoroughly vetted, background-checked, and
+              verified to ensure consistent quality.
+            </p>
           </div>
+
           <div>
-            <h2 className='text-2xl'>Effortless Scheduling</h2>
-            <p className='text-lg text-gray-600'>Book services instantly with clear availability and upfront pricing—no surprises, just convenience.</p>
+            <h2 className="text-xl md:text-2xl font-semibold mb-2">
+              Effortless Scheduling
+            </h2>
+            <p className="text-gray-600 text-base md:text-lg">
+              Book services instantly with clear availability and upfront
+              pricing—no surprises, just convenience.
+            </p>
           </div>
+
           <div>
-            <h2 className='text-2xl'>Trusted Transactions</h2>
-            <p className='text-lg text-gray-600'>Complete payments safely through our platform, released only once your service is delivered. </p>
+            <h2 className="text-xl md:text-2xl font-semibold mb-2">
+              Trusted Transactions
+            </h2>
+            <p className="text-gray-600 text-base md:text-lg">
+              Complete payments safely through our platform, released only
+              once your service is delivered.
+            </p>
           </div>
         </div>
+
       </div>
-    </div>
-  )
+    </section>
+  );
 }

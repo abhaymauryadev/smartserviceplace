@@ -99,31 +99,37 @@ export default function HowItWorksPage() {
     }, [activeIndex]);
     return (
         <main className="bg-gray-50 min-h-screen">
-            {/* <Navbar /> */}
+            <Navbar />
 
             {/* Hero Section */}
-            <section className="bg-gray-100 text-black py-20">
-                <div className="max-w-7xl mx-auto px-6 text-center">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-6">Simple. Transparent. Reliable.</h1>
-                    <p className="text-xl text-gray-900 max-w-3xl mx-auto">
-                        Whether you're looking to get a task done or grow your service business, ServeSphere connects you with the right people in just a few clicks.
+            <section className="bg-gray-100 text-black py-20 px-6">
+                <div className="max-w-7xl mx-auto text-center">
+
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                        Simple. Transparent. Reliable.
+                    </h1>
+
+                    <p className="text-base sm:text-lg md:text-xl text-gray-900 max-w-3xl mx-auto">
+                        Whether you're looking to get a task done or grow your service business,
+                        ServeSphere connects you with the right people in just a few clicks.
                     </p>
 
-                    <div className="flex justify-center items-center gap-6 pt-12 w-full">
+                    <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-12">
                         <Link
                             href="/services"
-                            className="px-8 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                            className="w-full sm:w-auto px-8 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-center"
                         >
                             Browse Services
                         </Link>
 
                         <Link
                             href="/register"
-                            className="px-8 py-3 border border-gray-300 text-black hover:bg-gray-200 rounded transition"
+                            className="w-full sm:w-auto px-8 py-3 border border-gray-300 text-black hover:bg-gray-200 rounded transition text-center"
                         >
                             Become a Provider
                         </Link>
                     </div>
+
                 </div>
             </section>
 
@@ -184,28 +190,60 @@ export default function HowItWorksPage() {
             </section>
 
 
-            <div className='h-screen mt-12 text-black'>
-                <div className='h-160 bg-white flex justify-center items-center'>
-                    <div className=' space-y-8 m-14'>
-                        <h1 className='text-4xl font-bold'>Your Peace of Mind  is our Priority</h1>
+            <section className="bg-white py-20 px-6">
+                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 text-black">
+
+                    {/* Image */}
+                    <div className="w-full lg:w-1/2 flex justify-center">
+                        <Image
+                            src="/assets/hero-image.png"
+                            alt="Platform illustration"
+                            width={500}
+                            height={500}
+                            priority
+                            className="rounded-3xl object-contain"
+                        />
+                    </div>
+
+                    {/* Content */}
+                    <div className="w-full lg:w-1/2 space-y-8">
+                        <h1 className="text-3xl md:text-4xl font-bold">
+                            Your Peace of Mind is Our Priority
+                        </h1>
+
                         <div>
-                            <h2 className='text-2xl'>Certified Professionals</h2>
-                            <p className='text-lg text-gray-600'> Each provider is thoroughly vetted, background‑checked, and verified to ensure consistent quality.</p>
+                            <h2 className="text-xl md:text-2xl font-semibold mb-2">
+                                Certified Professionals
+                            </h2>
+                            <p className="text-gray-600 text-base md:text-lg">
+                                Each provider is thoroughly vetted, background-checked, and
+                                verified to ensure consistent quality.
+                            </p>
                         </div>
+
                         <div>
-                            <h2 className='text-2xl'>Effortless Scheduling</h2>
-                            <p className='text-lg text-gray-600'>Book services instantly with clear availability and upfront pricing—no surprises, just convenience.</p>
+                            <h2 className="text-xl md:text-2xl font-semibold mb-2">
+                                Effortless Scheduling
+                            </h2>
+                            <p className="text-gray-600 text-base md:text-lg">
+                                Book services instantly with clear availability and upfront
+                                pricing—no surprises, just convenience.
+                            </p>
                         </div>
+
                         <div>
-                            <h2 className='text-2xl'>Trusted Transactions</h2>
-                            <p className='text-lg text-gray-600'>Complete payments safely through our platform, released only once your service is delivered. </p>
+                            <h2 className="text-xl md:text-2xl font-semibold mb-2">
+                                Trusted Transactions
+                            </h2>
+                            <p className="text-gray-600 text-base md:text-lg">
+                                Complete payments safely through our platform, released only
+                                once your service is delivered.
+                            </p>
                         </div>
                     </div>
-                    <div>
-                        <Image src="/assets/hero-image.png" alt="Hero illustration" width={500} height={500} priority className="object-contain rounded-3xl" />
-                    </div>
+
                 </div>
-            </div>
+            </section>
 
             <section className="py-32 bg-gray-100 text-black">
                 <h2 className="text-4xl font-bold text-center mb-20">
@@ -245,23 +283,29 @@ export default function HowItWorksPage() {
                 </div>
             </section>
 
-            <section className="py-16 bg-white text-black ">
-                <div className="max-w-6xl mx-auto px-6">
-                    <h2 className="text-4xl font-bold text-center mb-10">
+            <section className="bg-white text-black py-20 px-6">
+                <div className="max-w-6xl mx-auto text-center">
+
+                    <h2 className="text-3xl md:text-4xl font-bold mb-6">
                         Ready to Get Started?
                     </h2>
-                    <p className="text-lg text-gray-600 text-center mb-10">
-                        Join thousands of satisfied customers who rely on <br /> Smart Service Place for all their home service needs.
+
+                    <p className="text-base md:text-lg text-gray-600 mb-10">
+                        Join thousands of satisfied customers who rely on
+                        <br className="hidden sm:block" />
+                        Smart Service Place for all their home service needs.
                     </p>
-                    <div className="flex justify-center  gap-6">
-                        <button className="bg-blue-600 text-white px-6 py-3 rounded-sm cursor-pointer hover:bg-blue-600 transition">    
+
+                    <div className="flex flex-col sm:flex-row justify-center gap-4">
+                        <button className="w-full sm:w-auto bg-blue-600 text-white px-6 py-3 rounded-sm hover:bg-blue-700 transition">
                             Need a Service?
                         </button>
 
-                        <button className="bg-gray-100 text-black px-6 py-3 rounded-sm cursor-pointer hover:bg-gray-200 transition">
+                        <button className="w-full sm:w-auto bg-gray-100 text-black px-6 py-3 rounded-sm hover:bg-gray-200 transition">
                             Become a Provider
                         </button>
                     </div>
+
                 </div>
             </section>
             <Footer />

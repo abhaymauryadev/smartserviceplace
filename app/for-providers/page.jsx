@@ -65,26 +65,41 @@ export default function ForProvidersPage() {
             <Navbar />
 
             {/* Hero Section */}
-            <section className="relative flex justify-evenly items-center bg-white text-black py-24 overflow-hidden">
-                {/* Background Overlay or Image could go here */}
-                {/* <div className="absolute inset-0 bg-black/50 z-0"></div> */}
-                <div className="relative z-10 max-w-4xl  px-2 flex flex-col items-center text-center ">
-                    <h1 className="text-xl md:text-5xl font-extrabold mb-6 tracking-tight">
-                        Be your Own Boss <span className="text-blue-600">Earn More</span> <br /> with Smart Service Place
-                    </h1>
-                    <p className="text-base md:text-xl text-gray-500 max-w-2xl mb-10">
-                        Join the leading marketplace for local services. Get more leads, manage your bookings, and get paid securely all in one place
-                    </p>
-                    <Link
-                        href="/register?role=provider"
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-20 rounded-sm text-lg  "
-                    >
-                        Become a Provider
-                    </Link>
-                </div>
+            <section className="bg-white text-black py-24 px-6">
+                <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-16">
 
-                <div >
-                    <Image src="/assets/hero-image.png" alt="Hero illustration" width={500} height={500} priority className="object-contain rounded-3xl" />
+                    {/* Text Content */}
+                    <div className="max-w-xl text-center lg:text-left flex flex-col items-center lg:items-start">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
+                            Be Your Own Boss <span className="text-blue-600">Earn More</span>
+                            <br /> with Smart Service Place
+                        </h1>
+
+                        <p className="text-base md:text-lg text-gray-500 mb-10">
+                            Join the leading marketplace for local services. Get more leads,
+                            manage your bookings, and get paid securely all in one place.
+                        </p>
+
+                        <Link
+                            href="/register?role=provider"
+                            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-sm text-lg transition w-full sm:w-auto text-center"
+                        >
+                            Become a Provider
+                        </Link>
+                    </div>
+
+                    {/* Image */}
+                    <div className="w-full lg:w-1/2 flex justify-center">
+                        <Image
+                            src="/assets/hero-image.png"
+                            alt="Hero illustration"
+                            width={500}
+                            height={500}
+                            priority
+                            className="rounded-3xl object-contain"
+                        />
+                    </div>
+
                 </div>
             </section>
 

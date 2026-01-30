@@ -4,45 +4,58 @@ import { MdPlumbing } from "react-icons/md"
 
 export default function PopularServices() {
   return (
-    <div className="h-full  ">
-      <div> 
-        <h1 className="text-4xl text-center font-bold pt-16 pb-16 text-black">
+    <section className="bg-white py-20 px-6">
+      <div className="max-w-7xl mx-auto text-black">
+
+        {/* Heading */}
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-16">
           Popular Services
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-5 gap-5 max-w-8xl mx-auto">
+
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
             {
-                icon: <BrushCleaning size={50} color="blue" />,
+              icon: <BrushCleaning size={40} className="text-blue-600" />,
               title: "Home Cleaning",
-              desc: "Expert Cleaning Service for your home.",
+              desc: "Expert cleaning services for your home.",
             },
             {
-                icon: <MdPlumbing size={50} color="blue" />,
+              icon: <MdPlumbing size={40} className="text-blue-600" />,
               title: "Plumbing",
               desc: "Reliable and efficient plumbing services.",
             },
             {
-                icon: <GraduationCap size={50} color="blue" />,
+              icon: <GraduationCap size={40} className="text-blue-600" />,
               title: "Tutoring",
-              desc: "Personlazied tutoring services for all subjects",
+              desc: "Personalized tutoring services for all subjects.",
             },
             {
-                icon: <Blinds size={50} color="blue" />,    
+              icon: <Blinds size={40} className="text-blue-600" />,
               title: "Window Cleaning",
               desc: "Crystal clear windows, inside and out.",
             },
           ].map((service, idx) => (
             <div
               key={idx}
-              className=" w-72 bg-gray-200 text-black  h-60 flex flex-col justify-center items-center rounded-lg shadow-sm text-center space-y-2"
+              className="bg-gray-100 rounded-2xl p-8 text-center shadow-sm hover:shadow-md transition"
             >
-              {service.icon}
-              <h1 className="text-lg font-semibold">{service.title}</h1>
-              <p className="text-sm text-gray-600">{service.desc}</p>
+              <div className="flex justify-center mb-4">
+                {service.icon}
+              </div>
+
+              <h3 className="text-lg font-semibold mb-2">
+                {service.title}
+              </h3>
+
+              <p className="text-sm text-gray-600 leading-relaxed">
+                {service.desc}
+              </p>
             </div>
           ))}
         </div>
+
       </div>
-    </div>
+    </section>
   );
 }
