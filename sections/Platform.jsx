@@ -150,7 +150,7 @@ export default function Platform() {
             <div
               key={i}
               ref={(el) => (imagesRef.current[i] = el)}
-              className="absolute right-6 top-0 bottom-0 m-auto w-[40vw] max-w-[600px] h-[60vh] max-h-[500px] overflow-hidden"
+              className="absolute right-6 top-0 bottom-0 m-auto w-[40vw] max-w-150 h-[60vh] max-h-125 overflow-hidden"
               style={{ zIndex: data.length - i }}
             >
               <Image
