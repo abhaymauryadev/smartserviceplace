@@ -28,8 +28,9 @@ export default function Testimonials() {
       ease: "linear",
     });
 
+    // Animate bottom row in the opposite direction from the top row
     gsap.to(bottomRef.current, {
-      xPercent: 50,
+      xPercent: -50,
       duration: 25,
       repeat: -1,
       ease: "linear",
@@ -58,7 +59,7 @@ export default function Testimonials() {
       <div className="overflow-hidden mt-12">
         <div
           ref={bottomRef}
-          className="flex gap-6 w-max ml-[20%]"
+          className="flex gap-6 w-max mx-auto"
         >
           {[...row2, ...row2].map((t, i) => (
             <Card key={i} {...t} />
