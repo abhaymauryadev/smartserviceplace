@@ -4,6 +4,7 @@ import Navbar from '@/components/common/Navbar';
 import Footer from '@/sections/Footer';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react'
 import { Briefcase, DollarSign, Clock, TrendingUp } from 'lucide-react';
 
 export default function ForProvidersPage() {
@@ -69,11 +70,62 @@ export default function ForProvidersPage() {
                 <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-16">
 
                     {/* Text Content */}
-                    <div className="max-w-xl text-center lg:text-left flex flex-col items-center lg:items-start">
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
-                            Be Your Own Boss <span className="text-blue-600">Earn More</span>
-                            <br /> with Smart Service Place
-                        </h1>
+                    <div className="max-w-xl text-center lg:text-left flex flex-col items-center lg:items-start text-black">
+                        <div className="relative  flex items-center justify-center overflow-hidden text-black">
+                            {/* Shader Gradient Background */}
+                            <div className="absolute inset-0 -z-10 text-black">
+                                <ShaderGradientCanvas
+                                    style={{
+                                        position: "absolute",
+                                        top: 0,
+                                        left: 0,
+                                        width: "100vw",
+                                        height: "100vh",
+                                        pointerEvents: "none",
+                                    }}
+                                    pixelDensity={1}
+                                    fov={45}
+                                >
+                                    <ShaderGradient
+                                        animate="on"
+                                        axesHelper="off"
+                                        brightness={1.2}
+                                        cAzimuthAngle={170}
+                                        cDistance={4.4}
+                                        cPolarAngle={70}
+                                        cameraZoom={1}
+                                        color1="#2563EB"
+                                        color2="#4F46E5"
+                                        color3="#7C3AED"
+                                        destination="onCanvas"
+                                        envPreset="city"
+                                        frameRate={10}
+                                        grain="off"
+                                        lightType="3d"
+                                        positionX={0}
+                                        positionY={0.9}
+                                        positionZ={-0.3}
+                                        reflection={0.1}
+                                        rotationX={45}
+                                        shader="defaults"
+                                        type="waterPlane"
+                                        uSpeed={0.2}
+                                        uStrength={3.4}
+                                        wireframe={false}
+                                    />
+                                </ShaderGradientCanvas>
+                            </div>
+
+                            {/* Hero Content */}
+                            <h1 className="text-left text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-black">
+                                Be Your Own Boss{" "}
+                                <span className="bg-[linear-gradient(to_right,#2563EB,#4F46E5,#7C3AED)] bg-clip-text text-transparent">
+                                    Earn More
+                                </span>
+                                {" "}with Smart Service Place
+                            </h1>
+                        </div>
+
 
                         <p className="text-base md:text-lg text-gray-500 mb-10">
                             Join the leading marketplace for local services. Get more leads,

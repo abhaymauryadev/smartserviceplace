@@ -77,7 +77,7 @@ export default function Platform() {
           "Track payment status, invoices, and service history clearly within your account at all times."
       }
     ],
-    img: "/assets/preview.png",
+    img: "/assets/payment.png",
     bg: "bg-[#ffffff]",
   }
 ];
